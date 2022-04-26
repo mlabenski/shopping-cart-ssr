@@ -16,7 +16,26 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+## Data format
+My API end point passes in the data formatted:
+productId,int64
+name,object
+descShort,object
+descLong,object
+visible,int64
+stock,int64
+price,int64
+categories,object
+image,object
+featuredProduct,int64
 
+And can be accessed through two endpoints.
+
+@app.route('/products')
+return jsonify(queryObj), {'content-type':'application/json'}
+
+@app.route('/products/<paramid>')
+return jsonify(queryObj), {'content-type':'application/json'}
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
 ## Special Directories
