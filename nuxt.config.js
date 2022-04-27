@@ -43,6 +43,9 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify'
   ],
+  eslint: {
+    fix: true
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -88,7 +91,7 @@ export default {
           const routes = [];
           for (const key in res.data) {
             routes.push({
-              route: "/" +key,
+              route: "/" +res.data[key].productId,
               payload: { productData : res.data[key]}
             })
           }

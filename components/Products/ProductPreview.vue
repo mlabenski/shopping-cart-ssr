@@ -20,8 +20,8 @@ export default {
   name: 'ProductPreview',
   props: {
     id: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     },
     name: {
       type: String,

@@ -3,9 +3,9 @@
     <ProductPreview
       v-for="product in products"
       :id="product.productId"
-      :key="product.id"
+      :key="product.productId"
       :name="product.name"
-      :descShort="product.descShort"
+      :desc-short="product.descShort"
       :visible="product.visible"
       :price="product.price"
       :image="product.image"

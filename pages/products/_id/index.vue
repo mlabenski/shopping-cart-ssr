@@ -1,29 +1,49 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">{{ loadedProduct.name }}</h1>
+      <h1 class="post-title">
+        {{ loadedProduct.name }}
+      </h1>
       <div class="post-details">
-        <div class="post-detail">{{ loadedProduct.categories }}</div>
-        <div class="post-detail">$ {{ loadedProduct.price }}</div>
+        <div class="post-detail">
+          {{ loadedProduct.categories }}
+        </div>
+        <div class="post-detail">
+          $ {{ loadedProduct.price }}
+        </div>
       </div>
-      <p class="post-content">{{ loadedProduct.descShort}}</p>
+      <p class="post-content">
+        {{ loadedProduct.descShort }}
+      </p>
     </section>
     <section class="post-feedback">
-      <p>Let me know what you think about the post, send a mail to <a href="mailto:feedback@my-awesome-domain.com">feedback@my-awesome-domain.com</a>.</p>
+      <p>Let me know what you think about the post, send a mail to <a href="mailto:geeboff@geeboff.com">geeboff@geeboff.com</a>.</p>
     </section>
+    <router-link :to="{path: '/test', query: { id: 'help'}}">
+      <div class="text-center" style="position:relative">
+        <v-btn
+          rounded
+          color="primary"
+          dark
+          style="position: absolute; right: 50px; top: 30px"
+        >
+          Add to Shop
+        </v-btn>
+      </div>
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  asyncData: function (context) {
+  asyncData (context) {
     if (context.payload) {
       return {
         loadedProduct: context.payload.productData
       }
     }
     return context.app.$axios.$get('http://localhost:5000/products/' + context.params.id)
-      .then(data => {
+      .then((data) => {
         return {
           loadedProduct: data
         }
