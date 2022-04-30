@@ -19,18 +19,17 @@
     <section class="post-feedback">
       <p>Let me know what you think about the post, send a mail to <a href="mailto:geeboff@geeboff.com">geeboff@geeboff.com</a>.</p>
     </section>
-    <router-link :to="{path: '/test', query: { id: 'help'}}">
-      <div class="text-center" style="position:relative">
-        <v-btn
-          rounded
-          color="primary"
-          dark
-          style="position: absolute; right: 50px; top: 30px"
-        >
-          Add to Shop
-        </v-btn>
-      </div>
-    </router-link>
+    <div class="text-center" style="position:relative">
+      <v-btn
+        rounded
+        color="primary"
+        dark
+        style="position: absolute; right: 50px; top: 30px"
+        @click="onSubmitted(loadedProduct.name)"
+      >
+        Add to Shop
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -52,6 +51,14 @@ export default {
   },
   head: {
     title: 'Product Details'
+  },
+  methods: {
+    onSubmitted (id) {
+      console.log(id)
+      this.$store.dispatch('addCart', id).then(() => {
+        this.$router.push('/')
+      })
+    }
   }
 }
 </script>
