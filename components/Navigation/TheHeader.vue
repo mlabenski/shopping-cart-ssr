@@ -3,14 +3,31 @@
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
-        <nuxt-link to="/">Shopping Cart</nuxt-link>
+        <nuxt-link to="/">
+          Shopping Cart
+        </nuxt-link>
       </div>
-      <div class="spacer"></div>
+      <div class="spacer" />
       <div class="navigation-items">
         <ul class="nav-list">
-          <li class="nav-item"><nuxt-link to="/products">Shop</nuxt-link></li>
-          <li class="nav-item"><nuxt-link to="/about">About</nuxt-link></li>
-          <li class="nav-item"><nuxt-link to="/checkout">Check Out</nuxt-link></li>
+          <li class="nav-item">
+            <nuxt-link to="/products">
+              Shop
+            </nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link to="/about">
+              About
+            </nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link to="/checkout">
+              Check Out
+              <v-badge color="primary" right>
+                {{ savedCart }}
+              </v-badge>
+            </nuxt-link>
+          </li>
         </ul>
       </div>
     </header>
@@ -18,16 +35,20 @@
 </template>
 
 <script>
-import TheSideNavToggle from "@/components/Navigation/TheSideNavToggle";
+import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
 
 export default {
-  name: "TheHeader",
+  name: 'TheHeader',
   components: {
     TheSideNavToggle
+  },
+  computed: {
+    savedCart () {
+      return this.$store.getters.loadedCart.length
+    }
   }
-};
+}
 </script>
-
 
 <style scoped>
 .header-container {

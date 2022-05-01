@@ -25,7 +25,7 @@
         color="primary"
         dark
         style="position: absolute; right: 50px; top: 30px"
-        @click="onSubmitted(loadedProduct.name)"
+        @click="onSubmitted(loadedProduct.productId, loadedProduct.price)"
       >
         Add to Shop
       </v-btn>
@@ -53,9 +53,13 @@ export default {
     title: 'Product Details'
   },
   methods: {
-    onSubmitted (id) {
-      console.log(id)
-      this.$store.dispatch('addCart', id).then(() => {
+    onSubmitted (id, price) {
+      const userID = this.$cookies.get('userID')
+      const quantity = 5
+      const calcPrice = quantity * price
+      const data = { userID, ...this.loadedProduct, quantity, calcPrice, price }
+      console.log(data)
+      this.$store.dispatch('addCart', data).then(() => {
         this.$router.push('/')
       })
     }

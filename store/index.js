@@ -35,45 +35,42 @@ export const actions = {
         for (const key in data) {
           productsArray.push({ ...data[key], id: key })
         }
+        context.app.$cookies.set('userID', Math.floor(Math.random() * 100))
         vuexContext.commit('setProducts', productsArray)
       })
       .catch(e => context.error(e))
   },
   addCart (vuexContext, product) {
-    const createdOrder = {
+    const ogProduct = {
       product,
-      updatedDate: new Date(),
-      key: vuexContext.state.mem
+      updatedDate: new Date()
     }
     return this.$axios
       // .$post("http://localhost:5000/orders", createdOrder
-      .$post(`http://localhost:5000/order/add?data=${product}`
+      .$post(
+        `http://localhost:5000/order/add?userID=${product.userID}&productID=${product.productId}&quantity=${product.quantity}&price=${product.price}`
       )
       .then((data) => {
         // vuexContext.commit("addCart", {...createdOrder, id: data.productId})
-        vuexContext.commit('addCart', { ...createdOrder, id: data.product })
+        vuexContext.commit('addCart', { userID: data.userID, ...ogProduct })
+        // vuexContext.commit('addCart', { userID: data.userID, productID: data.productID, quantity: data.quantity, price: data.price })
       })
       .catch(e => console.log(e))
   },
   setProducts (vuexContext, product) {
     vuexContext.commit('setProducts', product)
   },
-  setOrders (vuexContext, productId) {
-    return this.$axios
-      .$get(`http://localhost:5000/order/add/?data=${productId}` + vuexContext.state.cart, productId)
-      .then((res) => {
-        vuexContext.commit('setOrder', productId)
-      })
-      .catch(e => alert(e))
-  },
-  fetchOrders (vuexContext, context) {
-    return context.app.$axios
-      .$get('/orders')
-      .then((data) => {
-        const json = data.json()
-        vuexContext.commit('setOrder', json.id)
-      })
-      .catch(e => context.error(e))
+  buildLink (vuexContext, userID) {
+    // ommitting hpp header for github const l
+    let generatedLink = ''
+    const cartItems = vuexContext.state.loadedCart
+    console.log(cartItems)
+    cartItems.forEach(function (listing) {
+      const price = listing.product.quantity * listing.product.price
+      generatedLink += listing.product.name + '%7C' + listing.product.quantity + '%7C' + price + '<>'
+    })
+    console.log(linkHeader + generatedLink.slice(0, -2))
+    return linkHeader + generatedLink.slice(0, -2)
   }
 }
 
