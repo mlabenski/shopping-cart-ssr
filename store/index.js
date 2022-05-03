@@ -62,7 +62,8 @@ export const actions = {
   },
   buildLink (vuexContext, userID) {
     // ommitting hpp header for github const l
-    let generatedLink = ''
+    const linkHeader = 'https://cardpointedemoaj.securepayments.cardpointe.com/pay?details='
+    let generatedLink = []
     const cartItems = vuexContext.state.loadedCart
     console.log(cartItems)
     cartItems.forEach(function (listing) {
