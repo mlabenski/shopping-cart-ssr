@@ -73,6 +73,8 @@ export default {
       this.$store.dispatch('buildLink', userID).then((data) => {
         window.open(data, '_blank')
       })
+      // later down the line we will change this to a successful payment/ or an acknowledgement "please work on other window"
+      this.$router.push('/store/' + this.$store.state.storeData[0].storeID + '/products')
     }
   }
 }

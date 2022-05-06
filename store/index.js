@@ -13,7 +13,8 @@ export const state = () => ({
   loadedCart: [],
   cart: 0,
   mem: Math.floor(Math.random() * 100),
-  storeData: []
+  storeData: [],
+  invalidLink: false
 })
 export const mutations = {
   setProducts (state, productsArray) {
@@ -30,13 +31,20 @@ export const mutations = {
   },
   setStoreInfo (state, storeData) {
     state.storeData = storeData
+  },
+  invalidLink (state, bool) {
+    state.invalidLink = bool
   }
 }
 
 export const actions = {
   async nuxtServerInit (vuexContext, context) {
-    vuexContext.dispatch('getStoreInfo', context)
-    return await vuexContext.dispatch('getProductInfo', context)
+    if (context.route.params.store) {
+      vuexContext.dispatch('getStoreInfo', context)
+      return await vuexContext.dispatch('getProductInfo', context)
+    } else {
+      return vuexContext.commit('invalidLink', true)
+    }
   },
   async getProductInfo (vuexContext, context) {
     const productData = []

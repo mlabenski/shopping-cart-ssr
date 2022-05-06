@@ -3,28 +3,28 @@
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
+        <nuxt-link v-if="loadedStore" :to="loadedStore.url">
+          {{ loadedStore.header }}
+        </nuxt-link>
         <nuxt-link v-if="loadedStore == null" to="/">
           Shopping Cart
-        </nuxt-link>
-        <nuxt-link v-if="loadedStore" to="/">
-          {{ loadedStore }}
         </nuxt-link>
       </div>
       <div class="spacer" />
       <div class="navigation-items">
         <ul class="nav-list">
           <li class="nav-item">
-            <nuxt-link to="/products">
+            <nuxt-link v-if="loadedStore" to="/products">
               Shop
             </nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link to="/about">
+            <nuxt-link v-if="loadedStore" to="/about">
               About
             </nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link to="/checkout">
+            <nuxt-link v-if="loadedStore" to="/checkout">
               Check Out
               <v-badge color="primary" right>
                 {{ savedCart }}
@@ -50,7 +50,11 @@ export default {
       return this.$store.getters.loadedCart.length
     },
     loadedStore () {
-      return this.$store.getters.getStore[0].header
+      if (this.$store.getters.getStore[0]) {
+        return { header: this.$store.getters.getStore[0].header, url: '/store/' + this.$store.getters.getStore[0].storeID + '/products' }
+      } else {
+        return null
+      }
     }
   }
 }

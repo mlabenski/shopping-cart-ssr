@@ -15,21 +15,24 @@
       <p class="post-content">
         {{ loadedProduct.descShort }}
       </p>
+      <div class="text-center" style="position:relative; margin-top: 15px">
+        <h2>Quantity: </h2>
+        <input v-model="quantity" placeholder="Edit Quantity" value="1" type="number">
+        <h3>Total Cost: ${{ quantity * loadedProduct.price }}.00</h3>
+        <v-btn
+          rounded
+          color="primary"
+          dark
+          style="position: absolute; right: 50px; top: 30px"
+          @click="onSubmitted(loadedProduct.productId, loadedProduct.price, quantity)"
+        >
+          Add to Shop
+        </v-btn>
+      </div>
     </section>
     <section class="post-feedback">
       <p>Let me know what you think about the post, send a mail to <a href="mailto:geeboff@geeboff.com">geeboff@geeboff.com</a>.</p>
     </section>
-    <div class="text-center" style="position:relative">
-      <v-btn
-        rounded
-        color="primary"
-        dark
-        style="position: absolute; right: 50px; top: 30px"
-        @click="onSubmitted(loadedProduct.productId, loadedProduct.price)"
-      >
-        Add to Shop
-      </v-btn>
-    </div>
   </div>
 </template>
 
@@ -49,13 +52,17 @@ export default {
       })
       .catch(e => context.error(e))
   },
+  data () {
+    return {
+      quantity: 1
+    }
+  },
   head: {
     title: 'Product Details'
   },
   methods: {
-    onSubmitted (id, price) {
+    onSubmitted (id, price, quantity) {
       const userID = this.$cookies.get('userID')
-      const quantity = 5
       const calcPrice = quantity * price
       const data = { userID, ...this.loadedProduct, quantity, calcPrice, price }
       console.log(data)
@@ -108,6 +115,9 @@ export default {
 .post-detail {
   color: rgb(88, 88, 88);
   margin: 0 10px;
+}
+.post-feedback {
+  padding-top: 250px
 }
 
 .post-feedback a {
