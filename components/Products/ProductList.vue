@@ -4,6 +4,7 @@
       v-for="product in products"
       :id="product.productId"
       :key="product.productId"
+      :store-i-d="product.storeID"
       :name="product.name"
       :desc-short="product.descShort"
       :visible="product.visible"

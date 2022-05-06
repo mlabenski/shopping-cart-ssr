@@ -1,15 +1,28 @@
 <template>
   <div class="home-page">
     <section class="intro">
-      <h1>Please select a store location to view their shop!</h1>
+      <h1>Buy NFTs from Nicolas Cage</h1>
+      <CartDisplay :cart="loadedCart" />
     </section>
+    <ProductList :products="loadedProducts" />
   </div>
 </template>
 
 <script>
+import ProductList from '~/components/Products/ProductList.vue'
+import CartDisplay from '~/components/Cart/CartDisplay.vue'
+
 export default {
   name: 'IndexPage',
-  components: { }
+  components: { CartDisplay, ProductList },
+  computed: {
+    loadedProducts () {
+      return this.$store.getters.loadedProducts
+    },
+    loadedCart () {
+      return this.$store.getters.loadedCart
+    }
+  }
 }
 </script>
 
@@ -45,12 +58,4 @@ export default {
   }
 }
 
-.featured-posts {
-  display: flex;
-  padding: 20px;
-  box-sizing: border-box;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
 </style>

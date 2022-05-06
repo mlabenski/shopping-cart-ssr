@@ -1,7 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 import bodyParser from 'body-parser'
 
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -30,10 +29,9 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~plugins/core-components.js", "~plugins/date-filter.js",
-    {src: "~/plugins/myplugin.js", mode: 'client'}
+  plugins: ['~plugins/core-components.js', '~plugins/date-filter.js',
+    { src: '~/plugins/myplugin.js', mode: 'client' }
   ],
-
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -64,8 +62,6 @@ export default {
     debug: true
   },
 
-
-
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -89,16 +85,16 @@ export default {
   build: {
     serverMiddleWare: [bodyParser.json(), '~/api'],
     generate: {
-      routes() {
-        return this.$axios.get('http://localhost:5000/products').then(res => {
-          const routes = [];
+      routes () {
+        return this.$axios.get('http://192.168.1.215:5000/products').then((res) => {
+          const routes = []
           for (const key in res.data) {
             routes.push({
-              route: "/" +res.data[key].productId,
-              payload: { productData : res.data[key]}
+              route: '/store/' + res.data[key].storeID + '/product/' + res.data[key].productId,
+              payload: { productData: res.data[key] }
             })
           }
-          return routes;
+          return routes
         })
       }
     }

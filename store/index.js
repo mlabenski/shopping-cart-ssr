@@ -12,7 +12,8 @@ export const state = () => ({
   loadedProducts: [],
   loadedCart: [],
   cart: 0,
-  mem: Math.floor(Math.random() * 100)
+  mem: Math.floor(Math.random() * 100),
+  storeData: []
 })
 export const mutations = {
   setProducts (state, productsArray) {
@@ -21,24 +22,33 @@ export const mutations = {
   addCart (state, product) {
     state.loadedCart.push(product)
   },
+  purgeCart (state) {
+    state.loadedCart = []
+  },
   setOrder: (state, productId) => {
     state.cart.push(productId)
+  },
+  setStoreInfo (state, storeData) {
+    state.storeData = storeData
   }
 }
 
 export const actions = {
-  nuxtServerInit (vuexContext, context) {
-    return context.app.$axios
-      .$get('http://localhost:5000/products')
-      .then((data) => {
-        const productsArray = []
-        for (const key in data) {
-          productsArray.push({ ...data[key], id: key })
-        }
-        context.app.$cookies.set('userID', Math.floor(Math.random() * 100))
-        vuexContext.commit('setProducts', productsArray)
-      })
-      .catch(e => context.error(e))
+  async nuxtServerInit (vuexContext, context) {
+    vuexContext.dispatch('getStoreInfo', context)
+    return await vuexContext.dispatch('getProductInfo', context)
+  },
+  async getProductInfo (vuexContext, context) {
+    const productData = []
+    const data = await context.app.$axios.$get('http://192.168.1.215:5000/store/' + context.route.params.store + '/products')
+    for (const key in data) {
+      productData.push({ ...data[key], id: key })
+    }
+    vuexContext.commit('setProducts', productData)
+  },
+  async getStoreInfo (vuexContext, context) {
+    const data = await context.app.$axios.$get('http://192.168.1.215:5000/store/' + context.route.params.store)
+    vuexContext.commit('setStoreInfo', data)
   },
   addCart (vuexContext, product) {
     const ogProduct = {
@@ -48,7 +58,7 @@ export const actions = {
     return this.$axios
       // .$post("http://localhost:5000/orders", createdOrder
       .$post(
-        `http://localhost:5000/order/add?userID=${product.userID}&productID=${product.productId}&quantity=${product.quantity}&price=${product.price}`
+        `http://192.168.1.215:5000/order/add?userID=${product.userID}&productID=${product.productId}&quantity=${product.quantity}&price=${product.price}`
       )
       .then((data) => {
         // vuexContext.commit("addCart", {...createdOrder, id: data.productId})
@@ -60,9 +70,9 @@ export const actions = {
   setProducts (vuexContext, product) {
     vuexContext.commit('setProducts', product)
   },
-  buildLink (vuexContext, userID) {
+  async buildLink (vuexContext, userID) {
     // ommitting hpp header for github const l
-    const linkHeader = 'https://cardpointedemoaj.securepayments.cardpointe.com/pay?details='
+    const linkHeader = vuexContext.state.storeData[0].hpp
     let generatedLink = []
     const cartItems = vuexContext.state.loadedCart
     console.log(cartItems)
@@ -70,8 +80,14 @@ export const actions = {
       const price = listing.product.quantity * listing.product.price
       generatedLink += listing.product.name + '%7C' + listing.product.quantity + '%7C' + price + '<>'
     })
+    // removing the last <> from the URL because it'd be invalid if not..
     console.log(linkHeader + generatedLink.slice(0, -2))
-    return linkHeader + generatedLink.slice(0, -2)
+    vuexContext.dispatch('removeOrderHistory', userID)
+    return await linkHeader + generatedLink.slice(0, -2)
+  },
+  async removeOrderHistory (vuexContext, userID) {
+    this.$axios.$post('http://192.168.1.215:5000/order/delete/' + userID)
+    return await vuexContext.commit('purgeCart')
   }
 }
 
@@ -84,5 +100,11 @@ export const getters = {
   },
   getCart: (state) => {
     return state.cart
+  },
+  loadedProductsByStore: (state, storeID) => {
+    return state.loadedProducts.find(products => products.storeID === storeID)
+  },
+  getStore: (state) => {
+    return state.storeData
   }
 }

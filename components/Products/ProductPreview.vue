@@ -23,6 +23,10 @@ export default {
       type: Number,
       default: 0
     },
+    storeID: {
+      type: Number,
+      default: 0
+    },
     name: {
       type: String,
       default: ''
@@ -46,7 +50,7 @@ export default {
   },
   computed: {
     postLink () {
-      return '/products/' + this.id
+      return '/store/' + this.storeID + '/products/' + this.id
     }
   }
 }

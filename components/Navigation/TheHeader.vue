@@ -3,8 +3,11 @@
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
-        <nuxt-link to="/">
+        <nuxt-link v-if="loadedStore == null" to="/">
           Shopping Cart
+        </nuxt-link>
+        <nuxt-link v-if="loadedStore" to="/">
+          {{ loadedStore }}
         </nuxt-link>
       </div>
       <div class="spacer" />
@@ -45,6 +48,9 @@ export default {
   computed: {
     savedCart () {
       return this.$store.getters.loadedCart.length
+    },
+    loadedStore () {
+      return this.$store.getters.getStore[0].header
     }
   }
 }

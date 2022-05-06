@@ -41,7 +41,7 @@ export default {
         loadedProduct: context.payload.productData
       }
     }
-    return context.app.$axios.$get('http://localhost:5000/products/' + context.params.id)
+    return context.app.$axios.$get('http://192.168.1.215:5000/store/' + context.params.store + '/products/' + context.params.id)
       .then((data) => {
         return {
           loadedProduct: data
@@ -60,7 +60,7 @@ export default {
       const data = { userID, ...this.loadedProduct, quantity, calcPrice, price }
       console.log(data)
       this.$store.dispatch('addCart', data).then(() => {
-        this.$router.push('/')
+        this.$router.push('/store/' + this.$store.state.storeData[0].storeID + '/products')
       })
     }
   }
