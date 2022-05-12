@@ -2,6 +2,7 @@
   <div class="home-page">
     <section class="intro">
       <h1>Buy NFTs from Nicolas Cage</h1>
+      <h1>Categories {{ loadedCategory }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
     <ProductList :products="loadedProducts" />
@@ -21,6 +22,9 @@ export default {
     },
     loadedCart () {
       return this.$store.getters.loadedCart
+    },
+    loadedCategory () {
+      return this.$store.getters.getCategories
     }
   }
 }

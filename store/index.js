@@ -51,6 +51,9 @@ export const actions = {
     const data = await context.app.$axios.$get('http://192.168.1.215:5000/store/' + context.route.params.store + '/products')
     for (const key in data) {
       productData.push({ ...data[key], id: key })
+      if (productData[key].options !== null) {
+        productData[key].options = JSON.parse(productData[key].options)
+      }
     }
     vuexContext.commit('setProducts', productData)
   },
@@ -111,6 +114,17 @@ export const getters = {
   },
   loadedProductsByStore: (state, storeID) => {
     return state.loadedProducts.find(products => products.storeID === storeID)
+  },
+  getCategories: (state) => {
+    const resArr = []
+    state.loadedProducts.filter(function (item) {
+      const i = resArr.findIndex(x => x === item.categories)
+      if (i <= -1) {
+        resArr.push(item.categories)
+      }
+      return null
+    })
+    return resArr
   },
   getStore: (state) => {
     return state.storeData
