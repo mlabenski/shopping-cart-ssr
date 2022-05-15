@@ -128,5 +128,40 @@ export const getters = {
   },
   getStore: (state) => {
     return state.storeData
+  },
+  getFilters: (state) => {
+    const length = state.storeData[0].filters
+    console.log('length is ' + length)
+    const filters = []
+    if (length > 0) {
+      const filter0 = state.storeData.filters[0]
+      const result = [...new Set(state.loadedProducts.map((obj) => {
+        return obj.filter0
+      })
+      )]
+      filters.push({ filterName: filter0, choices: result })
+    }
+    if (length > 1) {
+      const filter1 = state.storeData.filters[1]
+      const result = [...new Set(state.loadedProducts.map((obj) => {
+        return obj.filter1
+      })
+      )]
+      filters.push({ filterName: filter1, choices: result })
+    }
+    if (length > 2) {
+      const filter1 = state.storeData.filters[2]
+      const result = [...new Set(state.loadedProducts.map((obj) => {
+        return obj.filter2
+      })
+      )]
+      filters.push({ filterName: filter1, choices: result })
+    }
+    if (length > 0) {
+      console.log(filters)
+      return filters
+    } else {
+      return null
+    }
   }
 }

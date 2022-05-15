@@ -1,6 +1,12 @@
 <template>
   <div class="products-page">
     <HeaderFilter v-if="filterOpen" :categories="loadedCategory" />
+    <SidebarFilter
+      v-if="displaySidenav"
+      :loaded-filters="loadedFilters"
+      :show="displaySidenav"
+      @close="displaySidenav = false"
+    />
     <ProductList :products="loadedProducts" />
     <v-card
       color="grey lighten-4"
@@ -10,7 +16,7 @@
       class="filter-icons"
     >
       <v-toolbar collapse>
-        <v-btn icon>
+        <v-btn icon @click="closeSidebarFilter()">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
 
@@ -24,12 +30,14 @@
 
 <script>
 import HeaderFilter from '~/components/Filters/HeaderFilter.vue'
+import SidebarFilter from '~/components/Filters/SidebarFilter.vue'
 export default {
-  components: { HeaderFilter },
+  components: { HeaderFilter, SidebarFilter },
   middleware: 'log',
   data () {
     return {
-      filterOpen: false
+      filterOpen: false,
+      displaySidenav: false
     }
   },
   computed: {
@@ -38,6 +46,9 @@ export default {
     },
     loadedCategory () {
       return this.$store.getters.getCategories
+    },
+    loadedFilters () {
+      return this.$store.getters.getFilters
     }
   },
   created () {
@@ -53,6 +64,9 @@ export default {
     },
     closeFilter () {
       this.filterOpen = !this.filterOpen
+    },
+    closeSidebarFilter () {
+      this.displaySidenav = !this.displaySidenav
     }
   }
 }
