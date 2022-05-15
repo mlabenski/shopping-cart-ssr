@@ -59,6 +59,11 @@ export const actions = {
   },
   async getStoreInfo (vuexContext, context) {
     const data = await context.app.$axios.$get('http://192.168.1.215:5000/store/' + context.route.params.store)
+    for (const key in data) {
+      if (data[key].filters !== null) {
+        data[key].filters = JSON.parse(data[key].filters)
+      }
+    }
     vuexContext.commit('setStoreInfo', data)
   },
   addCart (vuexContext, product) {
@@ -130,32 +135,32 @@ export const getters = {
     return state.storeData
   },
   getFilters: (state) => {
-    const length = state.storeData[0].filters
+    const length = state.storeData[0].filters.length
     console.log('length is ' + length)
     const filters = []
     if (length > 0) {
-      const filter0 = state.storeData.filters[0]
+      const filter0 = state.storeData[0].filters[0]
       const result = [...new Set(state.loadedProducts.map((obj) => {
-        return obj.filter0
+        return obj[`${filter0}`]
       })
       )]
       filters.push({ filterName: filter0, choices: result })
     }
     if (length > 1) {
-      const filter1 = state.storeData.filters[1]
+      const filter1 = state.storeData[0].filters[1]
       const result = [...new Set(state.loadedProducts.map((obj) => {
-        return obj.filter1
+        return obj[`${filter1}`]
       })
       )]
       filters.push({ filterName: filter1, choices: result })
     }
     if (length > 2) {
-      const filter1 = state.storeData.filters[2]
+      const filter2 = state.storeData[0].filters[2]
       const result = [...new Set(state.loadedProducts.map((obj) => {
-        return obj.filter2
+        return obj[`${filter2}`]
       })
       )]
-      filters.push({ filterName: filter1, choices: result })
+      filters.push({ filterName: filter2, choices: result })
     }
     if (length > 0) {
       console.log(filters)
@@ -165,3 +170,4 @@ export const getters = {
     }
   }
 }
+
