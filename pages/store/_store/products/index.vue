@@ -31,13 +31,16 @@
 <script>
 import HeaderFilter from '~/components/Filters/HeaderFilter.vue'
 import SidebarFilter from '~/components/Filters/SidebarFilter.vue'
+import filterObj from '~/utils/filterObj'
+
 export default {
   components: { HeaderFilter, SidebarFilter },
   middleware: 'log',
   data () {
     return {
       filterOpen: false,
-      displaySidenav: false
+      displaySidenav: false,
+      filterObj
     }
   },
   computed: {

@@ -14,9 +14,10 @@
           <a>Filters</a>
         </h6>
         <FilterChoices
-          v-for="filter in loadedFilters"
+          v-for="(filter, index) in loadedFilters"
           :id="filter.filterName"
           :key="filter.filterName"
+          :index="index"
           :name="filter.filterName"
           :choices="filter.choices"
         />
@@ -46,6 +47,8 @@ export default {
     return {
       active: false
     }
+  },
+  method: {
   }
 }
 </script>
@@ -108,4 +111,3 @@ export default {
   color: red;
 }
 </style>
-

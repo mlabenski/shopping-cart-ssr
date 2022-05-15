@@ -4,15 +4,27 @@
     <h6 class="nav-item">
       <a>{{ name }} </a><span class="btn-section"> - </span>
     </h6>
-    <div v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-      <label>
-        <input type="checkbox"><span class="checkbox-material"><span class="check" /></span> {{ choice }}
-      </label>
-    </div>
+    <select v-if="index===0" v-model="filterObj.filter1" class="nav-item" style="background-color:red" @change="filterProducts">
+      <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
+        {{ choice }}
+      </option>
+    </select>
+    <select v-if="index===1" v-model="filterObj.filter2" class="nav-item" style="background-color:red" @change="filterProducts">
+      <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
+        {{ choice }}
+      </option>
+    </select>
+    <select v-if="index===2" v-model="filterObj.filter3" class="nav-item" style="background-color:red" @change="filterProducts">
+      <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
+        {{ choice }}
+      </option>
+    </select>
   </div>
 </template>
 
 <script>
+import filterObj from '~/utils/filterObj'
+
 export default {
   name: 'FilterChoices',
   props: {
@@ -23,9 +35,26 @@ export default {
     choices: {
       type: Array,
       default: null
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
+  data () {
+    return {
+      filterObj
     }
   },
   computed: {
+  },
+  methods: {
+    filterProducts () {
+      this.$store.dispatch('filterProducts', this.filterObj)
+    },
+    checkLog (log) {
+      console.log(log)
+    }
   }
 }
 </script>
@@ -36,6 +65,12 @@ export default {
 }
 
 .nav-item a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+.text {
   text-decoration: none;
   color: black;
   font-size: 1.5rem;

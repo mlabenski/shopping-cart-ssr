@@ -14,7 +14,8 @@ export const state = () => ({
   cart: 0,
   mem: Math.floor(Math.random() * 100),
   storeData: [],
-  invalidLink: false
+  invalidLink: false,
+  filterObj: {}
 })
 export const mutations = {
   setProducts (state, productsArray) {
@@ -34,6 +35,11 @@ export const mutations = {
   },
   invalidLink (state, bool) {
     state.invalidLink = bool
+  },
+  updateFilter (state, payload) {
+    console.log('did we get the right payload here?')
+    console.log(payload)
+    state.filterObj = payload
   }
 }
 
@@ -104,12 +110,62 @@ export const actions = {
   async removeOrderHistory (vuexContext, userID) {
     this.$axios.$post('http://192.168.1.215:5000/order/delete/' + userID)
     return await vuexContext.commit('purgeCart')
+  },
+  filterProducts (vuexContext, filterObj) {
+    console.log(`filter object is ${filterObj}`)
+    console.log(filterObj)
+    vuexContext.commit('updateFilter', filterObj)
   }
 }
 
 export const getters = {
-  loadedProducts: (state) => {
+  loadedProductsNew: (state) => {
     return state.loadedProducts
+  },
+  loadedProducts: (state) => {
+    switch (state.filterObj.filterCount) {
+      // no filters are passed
+      case 0:
+      case undefined:
+        console.log('this should run before we get an error')
+        console.log(state.loadedProducts)
+        return state.loadedProducts
+      // one filter is passed
+      case 1:
+        return state.loadedProducts.filter((product) => {
+          for (const key in state.filterObj) {
+            const caseOneFilter = state.storeData[0].filters[0]
+            const caseTwoFilter = state.storeData[0].filters[1]
+            const caseThreeFilter = state.storeData[0].filters[2]
+            console.log(key, product[caseOneFilter], caseOneFilter, state.filterObj[key])
+            console.log(key, product[caseTwoFilter], caseTwoFilter, state.filterObj[key])
+            console.log(key, product[caseThreeFilter], caseThreeFilter, state.filterObj[key])
+
+            if (product[caseOneFilter]) {
+              if (product[caseOneFilter].includes(state.filterObj[key])) { return true }
+            }
+            if (product[caseTwoFilter]) {
+              if (product[caseTwoFilter].includes(state.filterObj[key])) {
+                console.log('u there babe')
+                return true
+              }
+            } if (product[caseThreeFilter]) {
+              if (product[caseThreeFilter].includes(state.filterObj[key])) { return true }
+            }
+          }
+          return false
+        })
+        // two filters are based
+      case 2:
+        return state.loadedProducts.filter((product) => {
+          for (const key in state.filterObj) {
+            if (product[key]) {
+              if (!product[key].includes(state.filterObj[key])) { return false }
+            }
+          }
+          return true
+        })
+    }
   },
   loadedCart: (state) => {
     return state.loadedCart
@@ -144,6 +200,7 @@ export const getters = {
         return obj[`${filter0}`]
       })
       )]
+      result.unshift('')
       filters.push({ filterName: filter0, choices: result })
     }
     if (length > 1) {
@@ -152,6 +209,7 @@ export const getters = {
         return obj[`${filter1}`]
       })
       )]
+      result.unshift('')
       filters.push({ filterName: filter1, choices: result })
     }
     if (length > 2) {
@@ -160,6 +218,7 @@ export const getters = {
         return obj[`${filter2}`]
       })
       )]
+      result.unshift('')
       filters.push({ filterName: filter2, choices: result })
     }
     if (length > 0) {
@@ -170,4 +229,3 @@ export const getters = {
     }
   }
 }
-
