@@ -10,6 +10,9 @@
         v-if="show"
         class="sidenav"
       >
+        <h6 class="nav-item">
+          <a>Filters</a>
+        </h6>
         <FilterChoices
           v-for="filter in loadedFilters"
           :id="filter.filterName"
@@ -17,26 +20,6 @@
           :name="filter.filterName"
           :choices="filter.choices"
         />
-        <ul
-          class="nav-list"
-          @click="$emit('close')"
-        >
-          <li class="nav-item">
-            <nuxt-link to="/products">
-              Shop
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/about">
-              About
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/checkout">
-              Checkout
-            </nuxt-link>
-          </li>
-        </ul>
       </div>
     </transition>
   </div>
@@ -125,3 +108,4 @@ export default {
   color: red;
 }
 </style>
+
