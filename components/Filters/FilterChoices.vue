@@ -4,26 +4,25 @@
     <h6 class="nav-item">
       <a>{{ name }} </a><span class="btn-section"> - </span>
     </h6>
-    <select v-if="index===0" v-model="filterObj.filter1" class="nav-item" style="background-color:red" @change="filterProducts">
+    <select v-if="index===0" class="nav-item" v-model="filterValueColor" style="background-color: aquamarine;" @change="handleStatusFilter('color', filterValueColor)">
       <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-        {{ choice }}
+        {{ choice}}
       </option>
     </select>
-    <select v-if="index===1" v-model="filterObj.filter2" class="nav-item" style="background-color:red" @change="filterProducts">
+    <select v-if="index===1" class="nav-item" v-model="filterValueSize" style="background-color: aquamarine;" @change="handleStatusFilter('size', filterValueSize)">
       <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-        {{ choice }}
+        {{ choice}}
       </option>
     </select>
-    <select v-if="index===2" v-model="filterObj.filter3" class="nav-item" style="background-color:red" @change="filterProducts">
+    <select v-if="index===2" class="nav-item" v-model="filterValueGender" style="background-color: aquamarine;" @change="handleStatusFilter('gender', filterValueGender)">
       <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-        {{ choice }}
+        {{ choice}}
       </option>
     </select>
   </div>
 </template>
 
 <script>
-import filterObj from '~/utils/filterObj'
 
 export default {
   name: 'FilterChoices',
@@ -43,17 +42,17 @@ export default {
   },
   data () {
     return {
-      filterObj
+      colors: ['', 'green', 'red'],
+      sizes: ['', 'm', 'l'],
+      genders: ['', 'm', 'w'],
+      filterValueColor: '',
+      filterValueGender: '',
+      filterValueSize: '',
     }
   },
-  computed: {
-  },
   methods: {
-    filterProducts () {
-      this.$store.dispatch('filterProducts', this.filterObj)
-    },
-    checkLog (log) {
-      console.log(log)
+    handleStatusFilter (status, value) {
+      this.$store.dispatch('filterStatus', {status: status, value: value})
     }
   }
 }

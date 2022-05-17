@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Storage from 'vue-ls'
-
+import * as Filters from '~/helpers/filters'
 const options = {
   namespace: 'vuejs__', // key prefix
   name: 'ls', // name variable Vue.[ls] or this.[$ls],
@@ -10,16 +10,25 @@ const options = {
 Vue.use(Storage, options)
 export const state = () => ({
   loadedProducts: [],
+  filteredProducts: [],
   loadedCart: [],
   cart: 0,
   mem: Math.floor(Math.random() * 100),
   storeData: [],
   invalidLink: false,
-  filterObj: {}
+  filter: {
+    search: '',
+    status: 'all',
+    value: '',
+    order: 'createdAt'
+  }
 })
 export const mutations = {
   setProducts (state, productsArray) {
     state.loadedProducts = productsArray
+  },
+  setFilteredProducts(state, productsArray) {
+    state.filteredProducts = productsArray;
   },
   addCart (state, product) {
     state.loadedCart.push(product)
@@ -36,17 +45,23 @@ export const mutations = {
   invalidLink (state, bool) {
     state.invalidLink = bool
   },
-  updateFilter (state, payload) {
-    console.log('did we get the right payload here?')
-    console.log(payload)
-    state.filterObj = payload
+  setFilterStatus(state, status) {
+    state.filter.status = status;
+  },
+  setFilterValue(state, statusValue) {
+    state.filter.value =statusValue;
+  },
+  filterProducts(state) {
+    const products = [...state.loadedProducts]
+    state.filteredProducts = products
+    state.filteredProducts = Filters.filterProducts(state.filter, products)
   }
 }
 
 export const actions = {
   async nuxtServerInit (vuexContext, context) {
     if (context.route.params.store) {
-      vuexContext.dispatch('getStoreInfo', context)
+      await vuexContext.dispatch('getStoreInfo', context)
       return await vuexContext.dispatch('getProductInfo', context)
     } else {
       return vuexContext.commit('invalidLink', true)
@@ -61,6 +76,7 @@ export const actions = {
         productData[key].options = JSON.parse(productData[key].options)
       }
     }
+    await vuexContext.commit('setFilteredProducts', productData)
     vuexContext.commit('setProducts', productData)
   },
   async getStoreInfo (vuexContext, context) {
@@ -111,61 +127,22 @@ export const actions = {
     this.$axios.$post('http://192.168.1.215:5000/order/delete/' + userID)
     return await vuexContext.commit('purgeCart')
   },
-  filterProducts (vuexContext, filterObj) {
-    console.log(`filter object is ${filterObj}`)
-    console.log(filterObj)
-    vuexContext.commit('updateFilter', filterObj)
+  async filterStatus (vuexContext, {status, value}) {
+    await vuexContext.commit('setFilterStatus', status)
+    await vuexContext.commit('setFilterValue', value)
+    vuexContext.dispatch('filterProducts')
+  },
+  async filterProducts(vuexContext) {
+    vuexContext.commit('filterProducts')
   }
 }
 
 export const getters = {
-  loadedProductsNew: (state) => {
-    return state.loadedProducts
+  getFilteredProducts: (state) => {
+    return state.filteredProducts;
   },
   loadedProducts: (state) => {
-    switch (state.filterObj.filterCount) {
-      // no filters are passed
-      case 0:
-      case undefined:
-        console.log('this should run before we get an error')
-        console.log(state.loadedProducts)
-        return state.loadedProducts
-      // one filter is passed
-      case 1:
-        return state.loadedProducts.filter((product) => {
-          for (const key in state.filterObj) {
-            const caseOneFilter = state.storeData[0].filters[0]
-            const caseTwoFilter = state.storeData[0].filters[1]
-            const caseThreeFilter = state.storeData[0].filters[2]
-            console.log(key, product[caseOneFilter], caseOneFilter, state.filterObj[key])
-            console.log(key, product[caseTwoFilter], caseTwoFilter, state.filterObj[key])
-            console.log(key, product[caseThreeFilter], caseThreeFilter, state.filterObj[key])
-
-            if (product[caseOneFilter]) {
-              if (product[caseOneFilter].includes(state.filterObj[key])) { return true }
-            }
-            if (product[caseTwoFilter]) {
-              if (product[caseTwoFilter].includes(state.filterObj[key])) {
-                console.log('u there babe')
-                return true
-              }
-            } if (product[caseThreeFilter]) {
-              if (product[caseThreeFilter].includes(state.filterObj[key])) { return true }
-            }
-          }
-          return false
-        })
-        // two filters are based
-      case 2:
-        return state.loadedProducts.filter((product) => {
-          for (const key in state.filterObj) {
-            if (product[key]) {
-              if (!product[key].includes(state.filterObj[key])) { return false }
-            }
-          }
-          return true
-        })
-    }
+    return state.loadedProducts;
   },
   loadedCart: (state) => {
     return state.loadedCart

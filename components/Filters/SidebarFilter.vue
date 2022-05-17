@@ -11,6 +11,7 @@
         class="sidenav"
       >
         <h6 class="nav-item">
+          <h2>{{ loadedFilters }}</h2>
           <a>Filters</a>
         </h6>
         <FilterChoices

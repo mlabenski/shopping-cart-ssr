@@ -7,7 +7,8 @@
       :show="displaySidenav"
       @close="displaySidenav = false"
     />
-    <ProductList :products="loadedProducts" />
+    <ProductList v-if="!loadedFilteredProducts.length" :products="loadedProducts" />
+    <ProductList v-if="loadedFilteredProducts.length>0" :products="loadedFilteredProducts" />
     <v-card
       color="grey lighten-4"
       flat
@@ -31,7 +32,6 @@
 <script>
 import HeaderFilter from '~/components/Filters/HeaderFilter.vue'
 import SidebarFilter from '~/components/Filters/SidebarFilter.vue'
-import filterObj from '~/utils/filterObj'
 
 export default {
   components: { HeaderFilter, SidebarFilter },
@@ -39,13 +39,15 @@ export default {
   data () {
     return {
       filterOpen: false,
-      displaySidenav: false,
-      filterObj
+      displaySidenav: false
     }
   },
   computed: {
     loadedProducts () {
       return this.$store.getters.loadedProducts
+    },
+    loadedFilteredProducts () {
+      return this.$store.getters.getFilteredProducts
     },
     loadedCategory () {
       return this.$store.getters.getCategories
