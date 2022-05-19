@@ -1,7 +1,7 @@
 export function filterProducts (filter, products) {
   let filteredList = [...products]
+  let filtersList = [...filter]
 
-  //filter colors
   if (filter.status !== 'all') {
     if(filter.status === 'color') {
       //we probably aren't including the correct way to find a specific color

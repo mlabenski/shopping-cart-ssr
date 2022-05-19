@@ -10,10 +10,9 @@
         v-if="show"
         class="sidenav"
       >
-        <h6 class="nav-item">
-          <h2>{{ loadedFilters }}</h2>
+        <h4 class="nav-item">
           <a>Filters</a>
-        </h6>
+        </h4>
         <FilterChoices
           v-for="(filter, index) in loadedFilters"
           :id="filter.filterName"

@@ -61,13 +61,17 @@ export default {
     }
     return context.app.$axios.$get('http://192.168.1.215:5000/store/' + context.params.store + '/products/' + context.params.id)
       .then((data) => {
-        data.options = JSON.parse(data.options)
-        console.log(data.options)
-        return {
-          loadedProduct: data
+        if (data.options) {
+          data.options = JSON.parse(data.options)
+          return {
+            loadedProduct: data
+          }
+        } else {
+          return {
+            loadedProduct: data
+          }
         }
-      })
-      .catch(e => context.error(e))
+      }).catch(e => context.error(e))
   },
   data () {
     return {

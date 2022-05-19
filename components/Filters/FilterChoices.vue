@@ -1,22 +1,22 @@
 <template>
   <div>
-    <span class="line" />
+    <span v-if="index===0" class="line" />
     <h6 class="nav-item">
       <a>{{ name }} </a><span class="btn-section"> - </span>
     </h6>
-    <select v-if="index===0" class="nav-item" v-model="filterValueColor" style="background-color: aquamarine;" @change="handleStatusFilter('color', filterValueColor)">
+    <select v-if="index===0" v-model="filterValueColor" class="nav-item" style="background-color: aquamarine;" @change="handleStatusFilter('color', filterValueColor)">
       <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-        {{ choice}}
+        {{ choice }}
       </option>
     </select>
-    <select v-if="index===1" class="nav-item" v-model="filterValueSize" style="background-color: aquamarine;" @change="handleStatusFilter('size', filterValueSize)">
+    <select v-if="index===1" v-model="filterValueSize" class="nav-item" style="background-color: aquamarine;" @change="handleStatusFilter('size', filterValueSize)">
       <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-        {{ choice}}
+        {{ choice }}
       </option>
     </select>
-    <select v-if="index===2" class="nav-item" v-model="filterValueGender" style="background-color: aquamarine;" @change="handleStatusFilter('gender', filterValueGender)">
+    <select v-if="index===2" v-model="filterValueGender" class="nav-item" style="background-color: aquamarine;" @change="handleStatusFilter('gender', filterValueGender)">
       <option v-for="choice in choices" :key="choice" :value="choice" class="checkbox">
-        {{ choice}}
+        {{ choice }}
       </option>
     </select>
   </div>
@@ -47,12 +47,12 @@ export default {
       genders: ['', 'm', 'w'],
       filterValueColor: '',
       filterValueGender: '',
-      filterValueSize: '',
+      filterValueSize: ''
     }
   },
   methods: {
     handleStatusFilter (status, value) {
-      this.$store.dispatch('filterStatus', {status: status, value: value})
+      this.$store.dispatch('filterStatus', { status, value })
     }
   }
 }
