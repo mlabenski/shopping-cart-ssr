@@ -27,14 +27,20 @@ export const mutations = {
   setProducts (state, productsArray) {
     state.loadedProducts = productsArray
   },
-  setFilteredProducts(state, productsArray) {
-    state.filteredProducts = productsArray;
+  setFilteredProducts (state, productsArray) {
+    state.filteredProducts = productsArray
   },
   addCart (state, product) {
     state.loadedCart.push(product)
   },
   purgeCart (state) {
     state.loadedCart = []
+  },
+  removeOrderByID (state, productID) {
+    const filtered = state.loadedCart.filter(function (product) {
+      return product.product.productId !== productID
+    })
+    state.loadedCart = filtered
   },
   setOrder: (state, productId) => {
     state.cart.push(productId)
@@ -45,13 +51,13 @@ export const mutations = {
   invalidLink (state, bool) {
     state.invalidLink = bool
   },
-  setFilterStatus(state, status) {
-    state.filter.status = status;
+  setFilterStatus (state, status) {
+    state.filter.status = status
   },
-  setFilterValue(state, statusValue) {
-    state.filter.value =statusValue;
+  setFilterValue (state, statusValue) {
+    state.filter.value = statusValue
   },
-  filterProducts(state) {
+  filterProducts (state) {
     const products = [...state.loadedProducts]
     state.filteredProducts = products
     state.filteredProducts = Filters.filterProducts(state.filter, products)
@@ -74,6 +80,7 @@ export const actions = {
       productData.push({ ...data[key], id: key })
       if (productData[key].options !== null) {
         productData[key].options = JSON.parse(productData[key].options)
+        productData[key].options.unshift('')
       }
     }
     await vuexContext.commit('setFilteredProducts', productData)
@@ -123,26 +130,30 @@ export const actions = {
     vuexContext.dispatch('removeOrderHistory', userID)
     return await linkHeader + generatedLink.slice(0, -2)
   },
-  async removeOrderHistory (vuexContext, userID) {
-    this.$axios.$post('http://192.168.1.215:5000/order/delete/' + userID)
-    return await vuexContext.commit('purgeCart')
+  async removeOrderByID (vuexContext, id) {
+    await this.$axios.$post('http://192.168.1.215:5000/order/remove/' + id)
+    return vuexContext.commit('removeOrderByID', id)
   },
-  async filterStatus (vuexContext, {status, value}) {
+  async removeOrderHistory (vuexContext, userID) {
+    await this.$axios.$post('http://192.168.1.215:5000/order/delete/' + userID)
+    return vuexContext.commit('purgeCart')
+  },
+  async filterStatus (vuexContext, { status, value }) {
     await vuexContext.commit('setFilterStatus', status)
     await vuexContext.commit('setFilterValue', value)
     vuexContext.dispatch('filterProducts')
   },
-  async filterProducts(vuexContext) {
-    vuexContext.commit('filterProducts')
+  async filterProducts (vuexContext) {
+    await vuexContext.commit('filterProducts')
   }
 }
 
 export const getters = {
   getFilteredProducts: (state) => {
-    return state.filteredProducts;
+    return state.filteredProducts
   },
   loadedProducts: (state) => {
-    return state.loadedProducts;
+    return state.loadedProducts
   },
   loadedCart: (state) => {
     return state.loadedCart

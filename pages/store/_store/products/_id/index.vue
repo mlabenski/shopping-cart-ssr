@@ -15,14 +15,18 @@
           {{ loadedProduct.descShort }}
         </div>
       </div>
-      <div class="post-image" :style="{backgroundImage: 'url(' + loadedProduct.image + ')'}" />
+      <div v-if="selected===''" class="post-image" :style="{backgroundImage: 'url(' + loadedProduct.image + ')'}" />
+      <div v-if="selected!==''" class="post-image" :style="{backgroundImage: 'url(' + selected.image + ')'}" />
       <div class="text-center" style="position:relative; margin-top: 15px">
         <h3>Total Cost: ${{ quantity * loadedProduct.price }}.00</h3>
       </div>
       <v-row>
         <v-col>
           <h2>Options: </h2>
-          <select v-if="loadedProduct.options !== null" v-model="selected">
+          <select v-if="loadedProduct.options !== null" v-model="selected" @change="checkOption(selected)">
+            <option :key="''" :value="''">
+              {{ loadedProduct.name }}
+            </option>
             <option v-for="product in loadedProduct.options" :key="product.value" :value="product">
               {{ product.value }}
             </option>
@@ -91,6 +95,9 @@ export default {
       this.$store.dispatch('addCart', data).then(() => {
         this.$router.push('/store/' + this.$store.state.storeData[0].storeID + '/products')
       })
+    },
+    checkOption (id) {
+      console.log(id)
     }
   }
 }

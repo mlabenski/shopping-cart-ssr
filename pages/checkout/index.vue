@@ -41,17 +41,30 @@
                     {{ item.product.name }}
                   </v-list-item-title>
                   <v-list-item-title class="text-h6 text">
-                    $ {{ item.product.price }}
+                    Quantity: <b>{{ item.product.quantity }} </b>
                   </v-list-item-title>
                   <v-list-item-title class="text-h6 text">
-                    $ {{ item.product.quantity }}
+                    Price per item: $<b>{{ item.product.price }} </b>
                   </v-list-item-title>
+                  <span class="line" />
                   <v-list-item-title class="text-h6 text">
-                    $ {{ item.product.calcPrice }}
+                    Total Price: $<b>{{ item.product.calcPrice }} </b>
                   </v-list-item-title>
-                  <v-list-item-subtitle>REMOVE/EDIT</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
+              <v-btn
+                class="editBtn"
+                elevation="2"
+              >
+                Edit Order
+              </v-btn>
+              <v-btn
+                class="removeBtn"
+                elevation="2"
+                @click="removeProduct(item.product.productId)"
+              >
+                Remove Item
+              </v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -75,6 +88,13 @@ export default {
       })
       // later down the line we will change this to a successful payment/ or an acknowledgement "please work on other window"
       this.$router.push('/store/' + this.$store.state.storeData[0].storeID + '/products')
+    },
+    editProduct () {
+
+    },
+    removeProduct (product) {
+      console.log(product)
+      this.$store.dispatch('removeOrderByID', product)
     }
   }
 }
@@ -89,4 +109,19 @@ export default {
 .text {
   color: black
 }
+.editBtn {
+  color: white;
+  background-color: #dead10 !important;
+}
+.removeBtn {
+  color: white;
+  background-color: darkred !important;
+}
+.line {
+  border-bottom: 1px solid #a5a5a5;
+  font-size: 1px;
+  display: block;
+  height: 1px;
+  margin-top: 10px; }
+
 </style>
