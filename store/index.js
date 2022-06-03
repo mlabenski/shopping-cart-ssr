@@ -38,7 +38,7 @@ export const mutations = {
   },
   removeOrderByID (state, productID) {
     const filtered = state.loadedCart.filter(function (product) {
-      return product.product.productId !== productID
+      return product.productId !== productID
     })
     state.loadedCart = filtered
   },
@@ -120,18 +120,15 @@ export const actions = {
     vuexContext.commit('setStoreInfo', store)
   },
   addCart (vuexContext, product) {
-    const ogProduct = {
-      product,
-      updatedDate: new Date()
-    }
+    console.log(product)
     return this.$axios
       // .$post("http://localhost:5000/orders", createdOrder
       .$post(
-        `https://usewrapper.herokuapp.com/order/add?userID=${product.userID}&productID=${product.productId}&quantity=${product.quantity}&price=${product.price}`
+        `https://usewrapper.herokuapp.com/order/add?storeid=${product.storeID}&userID=${product.userID}&productID=${product.productID}&quantity=${product.quantity}&price=${product.price}`
       )
       .then((data) => {
         // vuexContext.commit("addCart", {...createdOrder, id: data.productId})
-        vuexContext.commit('addCart', { userID: data.userID, ...ogProduct })
+        vuexContext.commit('addCart', { userID: product.userID, productID: data.productID, quantity: data.quantity, price: data.price, name: product.name, calcPrice: product.calcPrice, storeID: product.storeID })
         // vuexContext.commit('addCart', { userID: data.userID, productID: data.productID, quantity: data.quantity, price: data.price })
       })
       .catch(e => console.log(e))
@@ -141,13 +138,15 @@ export const actions = {
   },
   async buildLink (vuexContext, userID) {
     // ommitting hpp header for github const l
-    const linkHeader = vuexContext.state.storeData[2].hpp
+    const storeID = vuexContext.state.loadedCart[0].storeID
+    console.log('store ID is : ' + storeID)
+    const linkHeader = vuexContext.state.storeData[storeID - 1].hpp
     let generatedLink = []
     const cartItems = vuexContext.state.loadedCart
     console.log(cartItems)
     cartItems.forEach(function (listing) {
-      const price = listing.product.quantity * listing.product.price
-      generatedLink += listing.product.name + '%7C' + listing.product.quantity + '%7C' + price + '<>'
+      const price = listing.quantity * listing.price
+      generatedLink += listing.name + '%7C' + listing.quantity + '%7C' + price + '<>'
     })
     // removing the last <> from the URL because it'd be invalid if not..
     console.log(linkHeader + generatedLink.slice(0, -2))

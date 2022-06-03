@@ -5,7 +5,7 @@
     </v-btn>
     <h1>This is where you should edit your cart or purchase above ^ </h1>
     <ul id="example-1">
-      <li v-for="item in loadedCart" :key="item.product.productId">
+      <li v-for="item in loadedCart" :key="item.productId">
         <v-card
           class="mx-auto"
           max-width="434"
@@ -27,7 +27,7 @@
                 tile
               >
                 <v-img
-                  :style="{backgroundImage: 'url(' + item.product.image + ')'}"
+                  :style="{backgroundImage: 'url(' + item.image + ')'}"
                 />
               </v-avatar>
             </v-col>
@@ -38,17 +38,17 @@
               >
                 <v-list-item-content>
                   <v-list-item-title class="text-h6 text">
-                    {{ item.product.name }}
+                    {{ item.name }}
                   </v-list-item-title>
                   <v-list-item-title class="text-h6 text">
-                    Quantity: <b>{{ item.product.quantity }} </b>
+                    Quantity: <b>{{ item.quantity }} </b>
                   </v-list-item-title>
                   <v-list-item-title class="text-h6 text">
-                    Price per item: $<b>{{ item.product.price }} </b>
+                    Price per item: $<b>{{ item.price }} </b>
                   </v-list-item-title>
                   <span class="line" />
                   <v-list-item-title class="text-h6 text">
-                    Total Price: $<b>{{ item.product.calcPrice }} </b>
+                    Total Price: $<b>{{ item.calcPrice }} </b>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -61,7 +61,7 @@
               <v-btn
                 class="removeBtn"
                 elevation="2"
-                @click="removeProduct(item.product.productId)"
+                @click="removeProduct(item.productId)"
               >
                 Remove Item
               </v-btn>
