@@ -140,7 +140,8 @@ export const actions = {
     // ommitting hpp header for github const l
     const storeID = vuexContext.state.loadedCart[0].storeID
     console.log('store ID is : ' + storeID)
-    const linkHeader = vuexContext.state.storeData[storeID - 1].hpp
+    const data = await this.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + storeID)
+    const linkHeader = data[0].hpp
     let generatedLink = []
     const cartItems = vuexContext.state.loadedCart
     console.log(cartItems)
