@@ -140,7 +140,7 @@ export const actions = {
     // ommitting hpp header for github const l
     const storeID = vuexContext.state.loadedCart[0].storeID
     console.log('store ID is : ' + storeID)
-    const data = await this.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + storeID)
+    const data = await this.$axios.$get('https://usewrapper.herokuapp.com/store/' + storeID)
     const linkHeader = data[0].hpp
     let generatedLink = []
     const cartItems = vuexContext.state.loadedCart
@@ -151,7 +151,7 @@ export const actions = {
     })
     // removing the last <> from the URL because it'd be invalid if not..
     console.log(linkHeader + generatedLink.slice(0, -2))
-    vuexContext.dispatch('removeOrderHistory', userID)
+    await vuexContext.dispatch('removeOrderHistory', userID)
     return await linkHeader + generatedLink.slice(0, -2)
   },
   async removeOrderByID (vuexContext, id) {

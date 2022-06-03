@@ -84,6 +84,7 @@ export default {
     buildLink () {
       const userID = this.$cookies.get('userID')
       this.$store.dispatch('buildLink', userID).then((data) => {
+        console.log('data returned is: ' + data)
         window.open(data, '_blank')
       })
       // later down the line we will change this to a successful payment/ or an acknowledgement "please work on other window"
