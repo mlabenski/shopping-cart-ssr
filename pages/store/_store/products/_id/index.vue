@@ -94,9 +94,10 @@ export default {
   methods: {
     onSubmitted (product, quantity) {
       const storeID = this.$route.params.store
+      const numberStore = Number(storeID)
       const userID = this.$cookies.get('userID')
       const calcPrice = quantity * product.price
-      const data = { storeID, userID, name: product.name, productID: product.productId, quantity, calcPrice, price: product.price }
+      const data = { storeID: numberStore, userID, name: product.name, productID: product.productId, quantity, calcPrice, price: product.price }
       this.$store.dispatch('addCart', data).then(() => {
         this.$router.push('/store/' + this.$route.params.store)
       })

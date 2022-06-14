@@ -83,7 +83,7 @@ export default {
   methods: {
     buildLink () {
       const userID = this.$cookies.get('userID')
-      this.$store.dispatch('buildLink', userID).then((data) => {
+      this.$store.dispatch('buildLink', { userID, cart: this.loadedCart }).then((data) => {
         console.log('data returned is: ' + data)
         window.open(data, '_blank')
       })

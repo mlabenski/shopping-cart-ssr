@@ -136,16 +136,18 @@ export const actions = {
   setProducts (vuexContext, product) {
     vuexContext.commit('setProducts', product)
   },
-  async buildLink (vuexContext, userID) {
+  async buildLink (vuexContext, payload) {
     // ommitting hpp header for github const l
-    const storeID = vuexContext.state.loadedCart[0].storeID
+    const userID = payload.userID
+    const cart = payload.cart
+    console.log('the cart is:')
+    console.log(cart)
+    const storeID = cart[0].storeID
     console.log('store ID is : ' + storeID)
     const data = await this.$axios.$get('https://usewrapper.herokuapp.com/store/' + storeID)
     const linkHeader = data[0].hpp
     let generatedLink = []
-    const cartItems = vuexContext.state.loadedCart
-    console.log(cartItems)
-    cartItems.forEach(function (listing) {
+    cart.forEach(function (listing) {
       const price = listing.quantity * listing.price
       generatedLink += listing.name + '%7C' + listing.quantity + '%7C' + price + '<>'
     })
