@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <section class="intro" :style="'--bkgImage: url(' + uploadedHeader + ')'">
+    <section class="intro" :style="'--bkgImage: url('+uploadedHeader+')'">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedCategory }}</h1>
       <CartDisplay :cart="loadedCart" />
