@@ -4,10 +4,7 @@
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
         <nuxt-link to="/">
-          Shopping Cart
-        </nuxt-link>
-        <nuxt-link :to="{path: 'store', params: { store: 1 }}">
-          Redirect Test
+          Beasy Boards
         </nuxt-link>
       </div>
       <div class="spacer" />

@@ -1,8 +1,6 @@
 <template>
   <div class="home-page">
     <section class="intro">
-      <h1>Buy NFTs from Nicolas Cage</h1>
-      <h1>Categories {{ loadedCategory }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
     <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" />
@@ -58,7 +56,7 @@ export default {
 
 <style scoped>
 .intro {
-  height: 300px;
+  height: 375px;
   position: relative;
   padding: 30px;
   box-sizing: border-box;
