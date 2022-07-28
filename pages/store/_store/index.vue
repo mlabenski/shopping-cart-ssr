@@ -56,11 +56,11 @@ export default {
 
 <style scoped>
 .intro {
-  height: 375px;
+  height: 300px;
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: url('https://i.imgur.com/ZTVf0FV.png');
+  background-image: url('https://i.imgur.com/nKS3SKS.png');
   background-position: center;
   background-size: cover;
 }
