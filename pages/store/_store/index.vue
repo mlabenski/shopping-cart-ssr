@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <section class="intro">
+    <section class="intro" :style="'--bkgImage: url(' + uploadedHeader + ')'">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedCategory }}</h1>
       <CartDisplay :cart="loadedCart" />
@@ -39,7 +39,8 @@ export default {
   },
   data () {
     return {
-      newLoadedProducts: []
+      newLoadedProducts: [],
+      uploadedHeader: 'https://i.imgur.com/ZTVf0FV.png'
     }
   },
   computed: {
@@ -62,7 +63,6 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: url("~assets/images/main-page-background.png");
   background-position: center;
   background-size: cover;
 }
