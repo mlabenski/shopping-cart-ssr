@@ -14,7 +14,7 @@ import CartDisplay from '~/components/Cart/CartDisplay.vue'
 export default {
   name: 'StoreHome',
   components: { CartDisplay, ProductList },
-    async asyncData({ params }) {
+    async asyncData(context) {
     // We can use async/await ES6 feature
       if (context.payload) {
         for (const i in context.payload) {
