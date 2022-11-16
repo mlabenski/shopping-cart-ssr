@@ -15,6 +15,7 @@ export default {
   name: 'StoreHome',
   components: { CartDisplay, ProductList },
     async asyncData(context) {
+    const lProducts = []
     // We can use async/await ES6 feature
       if (context.payload) {
         for (const i in context.payload) {
@@ -26,12 +27,17 @@ export default {
       else {
         const store = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store);
         const products = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/');
-        return { newLoadedProducts: products.data, store: store.data}
+           for (const i in products) {
+            console.log(lProducts)
+            lProducts.push({ ...data[i], id: i })
+            }
+        return { newLoadedProducts: lProducts, store: store.data}
        }
       },
   data () {
     return {
-      newLoadedProducts: []
+      newLoadedProducts: [],
+      store: []
     }
   },
   computed: {
