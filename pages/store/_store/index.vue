@@ -29,7 +29,7 @@ export default {
         const products = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/');
            for (const i in products) {
             console.log(lProducts)
-            lProducts.push({ ...data[i], id: i })
+            lProducts.push({ ...products.data[i], id: i })
             }
         return { newLoadedProducts: lProducts, store: store.data}
        }
