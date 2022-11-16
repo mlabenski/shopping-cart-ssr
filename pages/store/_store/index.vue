@@ -14,27 +14,21 @@ import CartDisplay from '~/components/Cart/CartDisplay.vue'
 export default {
   name: 'StoreHome',
   components: { CartDisplay, ProductList },
-  asyncData (context) {
-    const lProducts = []
-    if (context.payload) {
-      for (const i in context.payload) {
-        if (context.payload[i].storeID === this.$route.params.store) {
-          lProducts.push({ ...context.payload[i], id: i })
+    async asyncData({ params }) {
+    // We can use async/await ES6 feature
+      if (context.payload) {
+        for (const i in context.payload) {
+          if (context.payload[i].storeID === this.$route.params.store) {
+            lProducts.push({ ...context.payload[i], id: i })
+          }
         }
       }
-    } else {
-      return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/')
-        .then((data) => {
-          for (const i in data) {
-            console.log(lProducts)
-            lProducts.push({ ...data[i], id: i })
-          }
-          return {
-            newLoadedProducts: lProducts
-          }
-        }).catch(e => context.error(e))
-    }
-  },
+      else {
+        const store = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store);
+        const products = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/');
+        return { newLoadedProducts: products, store: store}
+       }
+      },
   data () {
     return {
       newLoadedProducts: []
