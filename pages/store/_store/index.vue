@@ -26,7 +26,7 @@ export default {
       else {
         const store = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store);
         const products = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/');
-        return { newLoadedProducts: products, store: store}
+        return { newLoadedProducts: products.data, store: store.data}
        }
       },
   data () {
