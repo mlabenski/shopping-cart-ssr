@@ -84,7 +84,6 @@ export default {
     justify-content: center;
     align-items: center;
 }
-
 .filter-icons {
   position: fixed;
   bottom: 8%;
