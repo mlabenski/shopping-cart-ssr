@@ -32,9 +32,10 @@
 <script>
 import HeaderFilter from '~/components/Filters/HeaderFilter.vue'
 import SidebarFilter from '~/components/Filters/SidebarFilter.vue'
-
+import ProductList from '~/components/Products/ProductList.vue'
 export default {
-  components: { HeaderFilter, SidebarFilter },
+  name: 'storeID',
+  components: { HeaderFilter, SidebarFilter, ProductList },
   middleware: 'log',
   data () {
     return {
@@ -83,7 +84,6 @@ export default {
     justify-content: center;
     align-items: center;
 }
-
 .filter-icons {
   position: fixed;
   bottom: 8%;
