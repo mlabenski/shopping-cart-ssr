@@ -4,7 +4,10 @@
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
         <nuxt-link to="/">
-          Beasy Boards
+          Shopping Cart
+        </nuxt-link>
+        <nuxt-link :to="{path: 'store', params: { store: 1 }}">
+          Redirect Test
         </nuxt-link>
       </div>
       <div class="spacer" />
@@ -36,7 +39,6 @@
 
 <script>
 import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
-
 export default {
   name: 'TheHeader',
   components: {
@@ -61,7 +63,6 @@ export default {
 .header-container {
   height: 60px;
 }
-
 .the-header {
   width: 100%;
   position: fixed;
@@ -74,47 +75,38 @@ export default {
   box-sizing: border-box;
   padding: 0 20px;
 }
-
 .logo {
   margin: 0 10px;
   font-size: 1.3rem;
 }
-
 .logo a {
   text-decoration: none;
   color: white;
 }
-
 .spacer {
   flex: 1;
 }
-
 .navigation-items {
   display: none;
 }
-
 @media (min-width: 768px) {
   .navigation-items {
     display: block;
   }
 }
-
 .nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
 }
-
 .nav-item {
   margin: 0 10px;
 }
-
 .nav-item a {
   text-decoration: none;
   color: white;
 }
-
 .nav-item a:hover,
 .nav-item a:active,
 .nav-item a.nuxt-link-active {
