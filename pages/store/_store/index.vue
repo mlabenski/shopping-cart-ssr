@@ -5,17 +5,42 @@
       <h1>Categories {{ loadedCategory }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
-    <ProductList :products="loadedProducts" />
+    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" />
   </div>
 </template>
 
 <script>
 import ProductList from '~/components/Products/ProductList.vue'
 import CartDisplay from '~/components/Cart/CartDisplay.vue'
-
 export default {
-  name: 'IndexPage',
+  name: 'StoreHome',
   components: { CartDisplay, ProductList },
+  asyncData (context) {
+    const lProducts = []
+    if (context.payload) {
+      for (const i in context.payload) {
+        if (context.payload[i].storeID === this.$route.params.store) {
+          lProducts.push({ ...context.payload[i], id: i })
+        }
+      }
+    } else {
+      return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/')
+        .then((data) => {
+          for (const i in data) {
+            console.log(lProducts)
+            lProducts.push({ ...data[i], id: i })
+          }
+          return {
+            newLoadedProducts: lProducts
+          }
+        }).catch(e => context.error(e))
+    }
+  },
+  data () {
+    return {
+      newLoadedProducts: []
+    }
+  },
   computed: {
     loadedProducts () {
       return this.$store.getters.loadedProducts
@@ -40,7 +65,6 @@ export default {
   background-position: center;
   background-size: cover;
 }
-
 .intro h1 {
   position: absolute;
   top: 10%;
@@ -55,11 +79,9 @@ export default {
   box-sizing: border-box;
   border: 1px solid black;
 }
-
 @media (min-width: 768px) {
   .intro h1 {
     font-size: 2rem;
   }
 }
-
 </style>
