@@ -1,6 +1,8 @@
 <template>
   <div class="home-page">
     <section class="intro">
+      <h1>Buy NFTs from Nicolas Cage</h1>
+      <h1>Categories {{ loadedCategory }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
     <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" />
@@ -10,34 +12,33 @@
 <script>
 import ProductList from '~/components/Products/ProductList.vue'
 import CartDisplay from '~/components/Cart/CartDisplay.vue'
-
 export default {
   name: 'StoreHome',
   components: { CartDisplay, ProductList },
-    async asyncData(context) {
+  asyncData (context) {
     const lProducts = []
-    // We can use async/await ES6 feature
-      if (context.payload) {
-        for (const i in context.payload) {
-          if (context.payload[i].storeID === this.$route.params.store) {
-            lProducts.push({ ...context.payload[i], id: i })
-          }
+    if (context.payload) {
+      for (const i in context.payload) {
+        if (context.payload[i].storeID === this.$route.params.store) {
+          lProducts.push({ ...context.payload[i], id: i })
         }
       }
-      else {
-        const store = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store);
-        const products = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/');
-           for (const i in products.data) {
-            lProducts.push({ ...products.data[i], id: i })
+    } else {
+      return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/')
+        .then((data) => {
+          for (const i in data) {
             console.log(lProducts)
-            }
-        return { newLoadedProducts: lProducts, store: store.data}
-       }
-      },
+            lProducts.push({ ...data[i], id: i })
+          }
+          return {
+            newLoadedProducts: lProducts
+          }
+        }).catch(e => context.error(e))
+    }
+  },
   data () {
     return {
-      newLoadedProducts: [],
-      store: []
+      newLoadedProducts: []
     }
   },
   computed: {
@@ -60,11 +61,10 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: url('https://i.imgur.com/nKS3SKS.png');
+  background-image: url("~assets/images/main-page-background.png");
   background-position: center;
   background-size: cover;
 }
-
 .intro h1 {
   position: absolute;
   top: 10%;
@@ -79,11 +79,9 @@ export default {
   box-sizing: border-box;
   border: 1px solid black;
 }
-
 @media (min-width: 768px) {
   .intro h1 {
     font-size: 2rem;
   }
 }
-
 </style>
