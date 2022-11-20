@@ -53,6 +53,7 @@ export default {
     },
     loadedStore () {
       return this.$store.getters.getStore
+      }
   }
 }
 </script>
