@@ -2,7 +2,7 @@
   <div class="home-page">
     <section class="intro">
       <h1>Buy NFTs from Nicolas Cage</h1>
-      <h1>Categories {{ loadedCategory }}</h1>
+      <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
     <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" />
@@ -50,7 +50,9 @@ export default {
     },
     loadedCategory () {
       return this.$store.getters.getCategories
-    }
+    },
+    loadedStore () {
+      return this.$store.getters.getStore
   }
 }
 </script>
