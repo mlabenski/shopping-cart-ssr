@@ -15,7 +15,7 @@ import CartDisplay from '~/components/Cart/CartDisplay.vue'
 export default {
   name: 'StoreHome',
   components: { CartDisplay, ProductList },
-  async asyncData (context) {
+  asyncData (context) {
     const lProducts = []
     if (context.payload) {
       for (const i in context.payload) {
@@ -24,14 +24,16 @@ export default {
         }
       }
     } else {
-    const products = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/');
-    const productsData = products.data;
-    // const store = await context.app.$axios.$get('https://usewrapper.herokuapp.com/store/'+ context.params.store);
-    for (const i in productsData) {
+      return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/')
+        .then((data) => {
+          for (const i in data) {
             console.log(lProducts)
-            lProducts.push({ ...productsData[i], id: i })
-           }
-     return { newLoadedProducts: lProducts  };
+            lProducts.push({ ...data[i], id: i })
+          }
+          return {
+            newLoadedProducts: lProducts
+          }
+        }).catch(e => context.error(e))
     }
   },
   data () {
