@@ -89,26 +89,14 @@ export default {
     serverMiddleWare: [bodyParser.json(), '~/api'],
     generate: {
       routes () {
-        const stores = this.$axios.get('https://usewrapper.herokuapp.com/stores/').then((res) => {
-          return res.data.map((store) => {
+        return this.$axios.get('https://https://usewrapper.herokuapp.com/stores/').then((res) => {
+          return res.data.map(store => {
             return {
               route: '/store/' + store.storeID,
               payload: store
-            }
-          })
+          }
         })
-        const products = this.$axios.get('https://usewrapper.herokuapp.com/products').then((res) => {
-          return res.data.map((product) => {
-            return {
-              route: '/store/' + product.storeID + '/products/' + product.productID,
-              payload: product
-            }
-          })
-        })
-        return Promise.all([stores, products]).then((values) => {
-          return [...values[0], ...values[1]]
-        })
-      }
+      })
     }
   }
 }
