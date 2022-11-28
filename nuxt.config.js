@@ -84,6 +84,7 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    devtools: true,
     serverMiddleWare: [bodyParser.json(), '~/api'],
     generate: {
       routes () {
