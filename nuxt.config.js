@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 import bodyParser from 'body-parser'
-
+import axios from 'axios'
 export default {
   generate: {
     fallback: true
@@ -88,8 +88,8 @@ export default {
   build: {
     serverMiddleWare: [bodyParser.json(), '~/api'],
     generate: {
-      routes () {
-        return this.$axios.get('https://https://usewrapper.herokuapp.com/stores/').then((res) => {
+      routes() {
+        return axios.get('https://usewrapper.herokuapp.com/stores/').then((res) => {
           return res.data.map(store => {
             return {
               route: '/store/' + store.storeID,
