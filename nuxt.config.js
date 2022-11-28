@@ -89,7 +89,7 @@ export default {
     serverMiddleWare: [bodyParser.json(), '~/api'],
     generate: {
       routes() {
-        return axios.get('https://usewrapper.herokuapp.com/stores/').then((res) => {
+        return axios.get('https://usewrapper.herokuapp.com/stores/').then(res => {
           return res.data.map(store => {
             return {
               route: '/store/' + store.storeID,
