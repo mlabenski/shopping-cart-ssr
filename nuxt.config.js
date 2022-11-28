@@ -1,6 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
 import bodyParser from 'body-parser'
-import axios from 'axios'
 export default {
   generate: {
     fallback: true
@@ -83,20 +82,31 @@ export default {
       }
     }
   },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     serverMiddleWare: [bodyParser.json(), '~/api'],
     generate: {
-      routes() {
-        return axios.get('https://usewrapper.herokuapp.com/stores/').then(res => {
-          return res.data.map(store => {
+      routes () {
+        const stores = this.$axios.get('https://usewrapper.herokuapp.com/stores/').then((res) => {
+          return res.data.map((store) => {
             return {
               route: '/store/' + store.storeID,
               payload: store
-          }
+            }
+          })
         })
-      })
+        const products = this.$axios.get('https://usewrapper.herokuapp.com/products').then((res) => {
+          return res.data.map((product) => {
+            return {
+              route: '/store/' + product.storeID + '/products/' + product.productID,
+              payload: product
+            }
+          })
+        })
+        return Promise.all([stores, products]).then((values) => {
+          return [...values[0], ...values[1]]
+        })
+      }
     }
   }
 }
