@@ -28,7 +28,7 @@ export default {
         .then((data) => {
         console.log(data[0].products)
           for (const i in data[0].products) {
-            lProducts.push({ data[0].products[i], id: i })
+            lProducts.push({ ...data[0].products[i], id: i })
           }
           return {
             newLoadedProducts: lProducts
