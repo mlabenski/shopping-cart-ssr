@@ -24,11 +24,12 @@ export default {
         }
       }
     } else {
-      return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/')
+      return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store)
         .then((data) => {
-          for (const i in data.products) {
+        const values = ...data.products
+          for (const i in values) {
             console.log(lProducts)
-            lProducts.push({ ...data[i].products, id: i })
+            lProducts.push({ values[i], id: i })
           }
           return {
             newLoadedProducts: lProducts
