@@ -1,10 +1,10 @@
 <template>
-  <section class="post-list">
+  <section class="post-list" v-if="storeid">
     <ProductPreview
       v-for="product in products"
       :id="product.productId"
       :key="product.productId"
-      :store="storeID"
+      :store="storeid"
       :name="product.name"
       :desc-short="product.descShort"
       :visible="product.visible"
@@ -31,7 +31,10 @@ export default {
       type: Array,
       default: null
     },
-    storeID
+    storeid: {
+      type: Number,
+      default: null
+    }
   }
 }
 </script>

@@ -6,7 +6,7 @@
       <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
-    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" :storeID="storeID"/>
+    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" :storeid=storeid />
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
     var header = ''
     var storeID = 0
     if (context.payload) {
+      storeID = context.payload[i].storeID
       for (const i in context.payload) {
         if (context.payload[i].storeID === this.$route.params.store) {
           lProducts.push({ ...context.payload[i], id: i })
@@ -41,7 +42,7 @@ export default {
           return {
             newLoadedProducts: lProducts,
             headers: header,
-            storeID: storeID
+            storeid: storeID
           }
         }).catch(e => context.error(e))
     }
@@ -51,7 +52,7 @@ export default {
       newLoadedProducts: [],
       displaySidenav: false,
       headers: 'Not yet loaded',
-      storeID: null
+      storeid: 2
     }
   },
   computed: {

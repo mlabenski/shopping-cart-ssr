@@ -82,6 +82,7 @@ export default {
         }
       }).catch(e => context.error(e))
   },
+  props: ['store'],
   data () {
     return {
       quantity: 1,
