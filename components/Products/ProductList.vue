@@ -4,7 +4,7 @@
       v-for="product in products"
       :id="product.productId"
       :key="product.productId"
-      :store-i-d="product.storeID"
+      :store-i-d="storeID"
       :name="product.name"
       :desc-short="product.descShort"
       :visible="product.visible"
@@ -30,7 +30,8 @@ export default {
     products: {
       type: Array,
       default: null
-    }
+    },
+    storeID
   }
 }
 </script>
