@@ -6,7 +6,7 @@
       <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
-    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" />
+    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" :storeID="storeID"/>
   </div>
 </template>
 
@@ -20,7 +20,9 @@ export default {
   components: { CartDisplay, ProductList, TheHeader },
   asyncData (context) {
     const lProducts = []
+    var storeID = ''
     var header = ''
+    var storeID = 0
     if (context.payload) {
       for (const i in context.payload) {
         if (context.payload[i].storeID === this.$route.params.store) {
@@ -31,13 +33,15 @@ export default {
       return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store)
         .then((data) => {
         header = data[0].header
+        storeID = data[0].storeID
         console.log(data[0].products)
           for (const i in data[0].products) {
             lProducts.push({ ...data[0].products[i], id: i })
           }
           return {
             newLoadedProducts: lProducts,
-            headers: header
+            headers: header,
+            storeID
           }
         }).catch(e => context.error(e))
     }
@@ -46,7 +50,8 @@ export default {
     return {
       newLoadedProducts: [],
       displaySidenav: false,
-      headers: 'Not yet loaded'
+      headers: 'Not yet loaded',
+      storeID: 0
     }
   },
   computed: {
