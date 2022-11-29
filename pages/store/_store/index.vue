@@ -1,4 +1,7 @@
 <template>
+  <div>
+  <TheHeader :title="" @sidenavToggle="displaySidenav = !displaySidenav" />
+  </div>
   <div class="home-page">
     <section class="intro">
       <h1>Buy NFTs from Nicolas Cage</h1>
@@ -12,11 +15,14 @@
 <script>
 import ProductList from '~/components/Products/ProductList.vue'
 import CartDisplay from '~/components/Cart/CartDisplay.vue'
+import TheHeader from '@/components/Navigation/TheHeader'
+
 export default {
   name: 'StoreHome',
-  components: { CartDisplay, ProductList },
+  components: { CartDisplay, ProductList, TheHeader },
   asyncData (context) {
     const lProducts = []
+    var header = ''
     if (context.payload) {
       for (const i in context.payload) {
         if (context.payload[i].storeID === this.$route.params.store) {
@@ -26,19 +32,23 @@ export default {
     } else {
       return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store)
         .then((data) => {
+        header = data[0].header
         console.log(data[0].products)
           for (const i in data[0].products) {
             lProducts.push({ ...data[0].products[i], id: i })
           }
           return {
-            newLoadedProducts: lProducts
+            newLoadedProducts: lProducts,
+            headers: header
           }
         }).catch(e => context.error(e))
     }
   },
   data () {
     return {
-      newLoadedProducts: []
+      newLoadedProducts: [],
+      displaySidenav: false,
+      headers: ''
     }
   },
   computed: {
