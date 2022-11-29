@@ -1,8 +1,6 @@
 <template>
-  <div>
-  <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
-  </div>
   <div class="home-page">
+  <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="intro">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
