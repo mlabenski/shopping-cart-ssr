@@ -4,7 +4,7 @@
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
         <nuxt-link to="/">
-          Shopping Cart
+          {{title}}
         </nuxt-link>
         <nuxt-link :to="{path: 'store', params: { store: 1 }}">
           Redirect Test
@@ -44,6 +44,7 @@ export default {
   components: {
     TheSideNavToggle
   },
+  props: ['title'],
   data () {
     return {
       store: null
