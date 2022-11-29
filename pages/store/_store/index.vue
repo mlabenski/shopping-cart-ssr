@@ -67,7 +67,10 @@ export default {
     },
     loadedStore () {
       return this.$store.getters.getStore
-      }
+    },
+    inl () {
+      return require()
+    }
   }
 }
 </script>
@@ -78,7 +81,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: url("~assets/images/main-page-background.png");
+  background-image: var(--header);
   background-position: center;
   background-size: cover;
 }
