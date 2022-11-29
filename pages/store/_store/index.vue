@@ -22,7 +22,7 @@ export default {
     const lProducts = []
     var storeID = ''
     var header = ''
-    var storeID = null
+    var storeID = 0
     if (context.payload) {
       for (const i in context.payload) {
         if (context.payload[i].storeID === this.$route.params.store) {
@@ -41,7 +41,7 @@ export default {
           return {
             newLoadedProducts: lProducts,
             headers: header,
-            storeID
+            storeID: storeID
           }
         }).catch(e => context.error(e))
     }
