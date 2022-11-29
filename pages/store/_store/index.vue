@@ -52,7 +52,7 @@ export default {
     return {
       newLoadedProducts: [],
       displaySidenav: false,
-      headers: 'Not yet loaded',
+      headers: '',
       storeid: 2,
       loaded: false
     }
