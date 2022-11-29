@@ -1,7 +1,7 @@
 <template>
   <div class="home-page" v-if="loaded">
   <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
-    <section class="intro">
+    <section class="intro" v-bind:style="{backgroundImage: headers}" v-if="headers">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
@@ -69,9 +69,6 @@ export default {
     },
     loadedStore () {
       return this.$store.getters.getStore
-    },
-    inl () {
-      return require()
     }
   }
 }
@@ -83,7 +80,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: var(--headers);
+  background-image: v-bind(this.headers);
   background-position: center;
   background-size: cover;
 }
