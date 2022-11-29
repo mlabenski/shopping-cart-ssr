@@ -22,7 +22,7 @@ export default {
     const lProducts = []
     var storeID = ''
     var header = ''
-    var storeID = 0
+    var storeID = null
     if (context.payload) {
       for (const i in context.payload) {
         if (context.payload[i].storeID === this.$route.params.store) {
@@ -51,7 +51,7 @@ export default {
       newLoadedProducts: [],
       displaySidenav: false,
       headers: 'Not yet loaded',
-      storeID: 0
+      storeID: null
     }
   },
   computed: {
