@@ -1,6 +1,6 @@
 <template>
   <div>
-  <TheHeader :title="" @sidenavToggle="displaySidenav = !displaySidenav" />
+  <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
   </div>
   <div class="home-page">
     <section class="intro">
@@ -48,7 +48,7 @@ export default {
     return {
       newLoadedProducts: [],
       displaySidenav: false,
-      headers: ''
+      headers: 'Not yet loaded'
     }
   },
   computed: {
