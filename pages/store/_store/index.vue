@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="home-page" v-if="loaded">
   <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="intro">
       <h1>Buy NFTs from Nicolas Cage</h1>
@@ -42,7 +42,8 @@ export default {
           return {
             newLoadedProducts: lProducts,
             headers: header,
-            storeid: storeID
+            storeid: storeID,
+            loaded: true
           }
         }).catch(e => context.error(e))
     }
@@ -52,7 +53,8 @@ export default {
       newLoadedProducts: [],
       displaySidenav: false,
       headers: 'Not yet loaded',
-      storeid: 2
+      storeid: 2,
+      loaded: false
     }
   },
   computed: {
