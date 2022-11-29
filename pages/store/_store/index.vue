@@ -83,7 +83,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: var(--header);
+  background-image: var(--headers);
   background-position: center;
   background-size: cover;
 }
