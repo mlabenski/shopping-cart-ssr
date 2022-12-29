@@ -1,7 +1,7 @@
 <template>
   <div class="home-page" v-if="loaded">
   <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
-    <section class="intro" v-bind:style="{backgroundImage: headers}" v-if="headers">
+    <section class="intro" v-bind:style="{ 'background-image': 'url(' + headers + ')' }" v-if="headers">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
@@ -81,7 +81,6 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: v-bind(this.headers);
   background-position: center;
   background-size: cover;
 }
