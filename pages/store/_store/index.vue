@@ -6,7 +6,7 @@
       <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
     </section>
-    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" :storeid=storeid />
+    <ProductList v-if="newLoadedProducts" :products="newLoadedProducts" :storeid="storeid" />
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
       displaySidenav: false,
       headers: '',
       headersImg: '',
-      storeid: 2,
+      storeid: null,
       loaded: false
     }
   },
