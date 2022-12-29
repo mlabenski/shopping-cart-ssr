@@ -10,11 +10,11 @@
           Home Page
         </nuxt-link>
       </div>
-      <div class="logo" v-else-if="!isLinkReady">
-        <nuxt-link>
-          {{title}}
+      <div class="logo" v-else>
+        <nuxt-link :to="`/`">
+          No Title ATM
         </nuxt-link>
-        <nuxt-link>
+        <nuxt-link :to="`/`">
           Home Page
         </nuxt-link>
       </div>
