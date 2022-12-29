@@ -23,7 +23,7 @@ export default {
       type: Number,
       default: 0
     },
-    store: {
+    storeid: {
       type: Number,
       default: 0
     },
