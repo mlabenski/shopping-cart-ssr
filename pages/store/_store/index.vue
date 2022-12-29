@@ -1,7 +1,7 @@
 <template>
-  <div class="home-page" v-if="loaded">
+  <div class="home-page" v-if="headers">
   <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
-    <section class="intro" v-bind:style="{ 'background-image': 'url(' + headersImg + ')' }" v-if="headers">
+    <section class="intro" v-bind:style="{ 'background-image': 'url(' + headersImg + ')' }">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
       <CartDisplay :cart="loadedCart" />
