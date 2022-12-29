@@ -59,6 +59,8 @@
 
 <script>
 import VueIcons from '~/components/Filters/VueIcons.vue'
+import TheHeader from '@/components/Navigation/TheHeader'
+
 export default {
   components: {
     VueIcons
