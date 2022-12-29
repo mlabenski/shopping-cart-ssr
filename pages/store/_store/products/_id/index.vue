@@ -63,7 +63,8 @@ import TheHeader from '@/components/Navigation/TheHeader'
 
 export default {
   components: {
-    VueIcons
+    VueIcons,
+    TheHeader
   },
   asyncData (context) {
     if (context.payload) {
