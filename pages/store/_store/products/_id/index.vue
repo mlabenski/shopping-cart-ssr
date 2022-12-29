@@ -1,5 +1,6 @@
 <template>
   <div class="single-post-page">
+    <TheHeader :title="'Check Out'" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="post">
       <h1 class="post-title">
         {{ loadedProduct.name }}
@@ -68,6 +69,8 @@ export default {
         loadedProduct: context.payload
       }
     }
+    // we are making this api call every view, might as well find a way to cache it. like SSR..
+    // but for now, we still want to obtain the shop data which is pretty difficult. [menu (header)] -> [titles]
     return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store + '/products/' + context.params.id)
       .then((data) => {
         if (data.options) {
@@ -86,7 +89,8 @@ export default {
   data () {
     return {
       quantity: 1,
-      selected: ''
+      selected: '',
+      displaySidenav: false
     }
   },
   head: {
@@ -97,6 +101,13 @@ export default {
       const storeID = this.$route.params.store
       const numberStore = Number(storeID)
       const userID = this.$cookies.get('userID')
+      //  its not safe to do the calculation in here
+      // high risk as $store.dispatch('addCart', data)
+      // data is the product information, generated through the cart. 
+      // addCart method [POST]  /order/add
+      // api `https://usewrapper.herokuapp.com/order/add?storeid=${product.storeID}&userID=${product.userID}&productID=${product.productID}&quantity=${product.quantity}&price=${product.price}`
+      // also runs the command*
+      // state.loadedCart.push(product)
       const calcPrice = quantity * product.price
       const data = { storeID: numberStore, userID, name: product.name, productID: product.productId, quantity, calcPrice, price: product.price }
       this.$store.dispatch('addCart', data).then(() => {
