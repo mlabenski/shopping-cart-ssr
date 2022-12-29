@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="postLink" class="post-preview">
+  <nuxt-link :to="postLink" :store="storeid" class="post-preview">
     <article>
       <div
         class="post-thumbnail"

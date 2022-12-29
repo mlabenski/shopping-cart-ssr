@@ -1,6 +1,6 @@
 <template>
   <div class="single-post-page">
-    <TheHeader :title="'Check Out'" @sidenavToggle="displaySidenav = !displaySidenav" />
+    <TheHeader :title="'Check Out'" :storeID="store" :isLinkReady="isLinkReady" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="post">
       <h1 class="post-title">
         {{ loadedProduct.name }}
@@ -88,12 +88,18 @@ export default {
         }
       }).catch(e => context.error(e))
   },
-  props: ['store'],
+  props: {
+    store : {
+        type: number,
+        default: 0
+      },
+    },
   data () {
     return {
       quantity: 1,
       selected: '',
-      displaySidenav: false
+      displaySidenav: false,
+      isLinkReady : true
     }
   },
   head: {

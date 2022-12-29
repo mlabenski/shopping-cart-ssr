@@ -1,6 +1,6 @@
 <template>
   <div class="home-page" v-if="headers">
-  <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
+  <TheHeader :title="headers" :storeID="storeid" :isLinkReady="isLinkReady" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="intro" v-bind:style="{ 'background-image': 'url(' + headersImg + ')' }">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
@@ -24,6 +24,7 @@ export default {
     var header = ''
     var headerImg = ''
     var storeID = 0
+    requestComplete = true
     if (context.payload) {
       storeID = context.payload[i].storeID
       for (const i in context.payload) {
@@ -43,6 +44,7 @@ export default {
           }
           return {
             newLoadedProducts: lProducts,
+            isLinkReady: requestComplete,
             headers: header,
             headersImg: headerImg,
             storeid: storeID,
@@ -58,7 +60,8 @@ export default {
       headers: '',
       headersImg: '',
       storeid: null,
-      loaded: false
+      loaded: false,
+      isLinkReady: false
     }
   },
   computed: {

@@ -2,12 +2,20 @@
   <div class="header-container">
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
-      <div class="logo">
-        <nuxt-link to="/">
+      <div class="logo" v-if="isLinkReady">
+        <nuxt-link :to="postLink">
           {{title}}
         </nuxt-link>
-        <nuxt-link :to="{path: 'store', params: { store: 1 }}">
-          Redirect Test
+        <nuxt-link :to="postLink">
+          Home Page
+        </nuxt-link>
+      </div>
+      <div class="logo" v-else-if="!isLinkReady">
+        <nuxt-link>
+          {{title}}
+        </nuxt-link>
+        <nuxt-link>
+          Home Page
         </nuxt-link>
       </div>
       <div class="spacer" />
@@ -44,10 +52,25 @@ export default {
   components: {
     TheSideNavToggle
   },
-  props: ['title'],
+  props: {
+    title: {
+      type: String,
+      default: 'Home Page'
+    },
+    isLinkReady: {
+      type: Boolean,
+      default: false
+    },
+    storeid: {
+      type: Number,
+      default: null
+    }
+  },
   data () {
     return {
-      store: null
+      store: null,
+      storeID: null,
+      displayLink: false
     }
   },
   async fetch () {
@@ -55,6 +78,9 @@ export default {
   computed: {
     savedCart () {
       return this.$store.getters.loadedCart.length
+    },
+    goBack () {
+      return '/store/' + this.storeid
     }
   }
 }
