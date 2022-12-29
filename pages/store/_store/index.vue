@@ -34,6 +34,7 @@ export default {
       return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store)
         .then((data) => {
         header = data[0].header
+        console.log(`header is ${header}`)
         storeID = data[0].storeID
         console.log(data[0].products)
           for (const i in data[0].products) {
