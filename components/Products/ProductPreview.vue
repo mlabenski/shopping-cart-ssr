@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     postLink () {
-      return '/store/' + this.store + '/products/' + this.id
+      return '/store/' + this.storeid + '/products/' + this.id
     }
   }
 }
