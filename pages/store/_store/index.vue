@@ -22,6 +22,7 @@ export default {
     const lProducts = []
     var storeID = ''
     var header = ''
+    var headerImg = ''
     var storeID = 0
     if (context.payload) {
       storeID = context.payload[i].storeID
