@@ -1,9 +1,9 @@
 <template>
   <div class="checkout-page">
+    <TheHeader :title='`Checkout Page`'/>
     <v-btn rounded @click="buildLink()">
       Buy Now
     </v-btn>
-    <h1>This is where you should edit your cart or purchase above ^ </h1>
     <ul id="example-1">
       <li v-for="item in loadedCart" :key="item.productId">
         <v-card

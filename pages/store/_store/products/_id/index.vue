@@ -1,6 +1,6 @@
 <template>
   <div class="single-post-page">
-    <TheHeader :title="'Check Out'" @sidenavToggle="displaySidenav = !displaySidenav" />
+    <TheHeader :title="loadedProduct.name" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="post">
       <h1 class="post-title">
         {{ loadedProduct.name }}
