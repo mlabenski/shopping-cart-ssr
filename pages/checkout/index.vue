@@ -27,7 +27,7 @@
                 tile
               >
                 <v-img
-                  :style="{backgroundImage: 'url(' + item.image + ')'}"
+                  :src=item.image
                 />
               </v-avatar>
             </v-col>
