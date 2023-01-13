@@ -73,8 +73,10 @@
   </div>
 </template>
 <script>
+import TheHeader from '@/components/TheHeader.vue'
 export default {
   name: 'CheckoutPage',
+  components: {TheHeader},
   computed: {
     loadedCart () {
       return this.$store.getters.loadedCart
