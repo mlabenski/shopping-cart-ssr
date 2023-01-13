@@ -1,6 +1,6 @@
 <template>
   <div class="home-page" v-if="headers">
-  <TheHeader :title="headers" :storeID="storeid" :isLinkReady="isLinkReady" @sidenavToggle="displaySidenav = !displaySidenav" />
+  <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="intro" v-bind:style="{ 'background-image': 'url(' + headersImg + ')' }">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
@@ -24,7 +24,6 @@ export default {
     var header = ''
     var headerImg = ''
     var storeID = 0
-    requestComplete = true
     if (context.payload) {
       storeID = context.payload[i].storeID
       for (const i in context.payload) {
@@ -35,7 +34,7 @@ export default {
     } else {
       return context.app.$axios.$get('https://usewrapper.herokuapp.com/store/' + context.params.store)
         .then((data) => {
-          // we need  to fix header for db and normalize this as a title
+          // this is resolved - we need  to fix header for db and normalize this as a title
         header = data[0].header
         headerImg = data[0].image
         storeID = data[0].storeID
@@ -44,7 +43,6 @@ export default {
           }
           return {
             newLoadedProducts: lProducts,
-            isLinkReady: requestComplete,
             headers: header,
             headersImg: headerImg,
             storeid: storeID,
@@ -60,8 +58,7 @@ export default {
       headers: '',
       headersImg: '',
       storeid: null,
-      loaded: false,
-      isLinkReady: false
+      loaded: false
     }
   },
   computed: {
@@ -110,3 +107,4 @@ export default {
   }
 }
 </style>
+
