@@ -128,7 +128,7 @@ export const actions = {
       )
       .then((data) => {
         // vuexContext.commit("addCart", {...createdOrder, id: data.productId})
-        vuexContext.commit('addCart', { userID: product.userID, productID: data.productID, quantity: data.quantity, price: data.price, name: product.name, calcPrice: product.calcPrice, storeID: product.storeID })
+        vuexContext.commit('addCart', { userID: product.userID, productID: data.productID, quantity: data.quantity, price: data.price, name: product.name, calcPrice: product.calcPrice, storeID: product.storeID, image: product.image })
         // vuexContext.commit('addCart', { userID: data.userID, productID: data.productID, quantity: data.quantity, price: data.price })
       })
       .catch(e => console.log(e))
