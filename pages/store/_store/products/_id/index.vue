@@ -112,7 +112,7 @@ export default {
       // also runs the command*
       // state.loadedCart.push(product)
       const calcPrice = quantity * product.price
-      const data = { storeID: numberStore, userID, name: product.name, productID: product.productId, quantity, calcPrice, price: product.price }
+      const data = { storeID: numberStore, userID, name: product.name, productID: product.productId, quantity, calcPrice, price: product.price, image: product.image }
       this.$store.dispatch('addCart', data).then(() => {
         this.$router.push('/store/' + this.$route.params.store)
       })
