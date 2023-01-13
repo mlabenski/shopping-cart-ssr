@@ -2,36 +2,18 @@
   <div class="header-container">
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
-      <div class="logo" v-if="isLinkReady">
-        <nuxt-link :to="postLink">
+      <div class="logo">
+        <nuxt-link to="/">
           {{title}}
         </nuxt-link>
-        <nuxt-link :to="postLink">
-          Home Page
-        </nuxt-link>
-      </div>
-      <div class="logo" v-else>
-        <nuxt-link :to="`/`">
-          No Title ATM
-        </nuxt-link>
-        <nuxt-link :to="`/`">
-          Home Page
+        <nuxt-link :to="{path: 'store', params: { store: 1 }}">
+          Redirect Test
         </nuxt-link>
       </div>
       <div class="spacer" />
       <div class="navigation-items">
         <ul class="nav-list">
-          <li class="nav-item">
-            <nuxt-link to="/products">
-              Shop
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/about">
-              About
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
+          <li class="nav-item" style="float: right">
             <nuxt-link :to="{name: 'checkout'}">
               Check Out
               <v-badge color="primary" right>
@@ -52,25 +34,10 @@ export default {
   components: {
     TheSideNavToggle
   },
-  props: {
-    title: {
-      type: String,
-      default: 'Home Page'
-    },
-    isLinkReady: {
-      type: Boolean,
-      default: false
-    },
-    storeid: {
-      type: Number,
-      default: null
-    }
-  },
+  props: ['title'],
   data () {
     return {
-      store: null,
-      storeID: null,
-      displayLink: false
+      store: null
     }
   },
   async fetch () {
@@ -78,9 +45,6 @@ export default {
   computed: {
     savedCart () {
       return this.$store.getters.loadedCart.length
-    },
-    goBack () {
-      return '/store/' + this.storeid
     }
   }
 }
