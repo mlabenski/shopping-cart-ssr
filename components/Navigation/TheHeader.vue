@@ -32,14 +32,34 @@
       <v-flex xs6>
       </v-flex>
       <v-flex xs6>
+        <v-menu>
+        <template v-slot:activator="{ on }" class="div-for-small-screen">
+          <v-btn icon v-on="on">
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </template>
+        <v-list style="margin-top:1.5%;">
+          <v-list-item @click.prevent="onFilter" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
+            <v-list-item-title>Filters</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click.prevent="onCategories">
+            <v-list-item-title>Categories</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click.prevent="$router.push('/checkout')" :disabled="savedCart == 0" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
+            <v-list-item-title>Check Out</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      </v-flex>
+
+      <v-flex xs6 class="div-for-large-screen">
         <v-spacer></v-spacer>
-        <v-btn text @click="handleContact">Categories</v-btn>
-        <v-btn text @click="handleContact">Filters</v-btn>
+        <v-btn text @click="onFilter">Categories</v-btn>
+        <v-btn text @click="onCategories">Filters</v-btn>
         <v-badge color="primary" right><v-btn text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
       </v-flex>
     </v-layout>
     </v-toolbar>
-              <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
     </div>
 </template>
 
@@ -160,4 +180,19 @@ export default {
   font-size: 21px;
   text-decoration: solid;
 }
+.div-for-small-screen {
+  display: block;
+}
+.div-for-large-screen {
+  display: none;
+}
+@media (min-width: 768px) {
+  .div-for-small-screen {
+    display: none;
+  }
+  .div-for-large-screen {
+    display: block;
+  }
+}
+
 </style>
