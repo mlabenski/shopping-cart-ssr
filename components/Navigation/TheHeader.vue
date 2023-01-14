@@ -20,18 +20,15 @@
     </v-icon>
     </v-system-bar>
     <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
-        <v-layout row wrap>
-          <v-flex xs6>
-            <v-img :src="logo" class="logo"></v-img>
-          </v-flex>
+      <v-layout row wrap>
         <v-flex xs6>
           <nuxt-link to="/"><v-toolbar-title>{{ title }}</v-toolbar-title></nuxt-link>
         </v-flex>
-      </v-layout>
+    </v-layout>
       <v-layout row wrap>
       <v-flex xs6>
       </v-flex>
-      <v-flex xs6>
+      <v-flex xs6 v-if="smallScreen">
         <v-menu>
         <template v-slot:activator="{ on }" class="div-for-small-screen">
           <v-btn icon v-on="on">
@@ -39,20 +36,20 @@
           </v-btn>
         </template>
         <v-list style="margin-top:1.5%;">
-          <v-list-item @click.prevent="onFilter" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
+          <v-list-item @click.prevent="onFilter">
             <v-list-item-title>Filters</v-list-item-title>
           </v-list-item>
-          <v-list-item @click.prevent="onCategories">
+          <v-list-item @click.prevent="onCategories" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
             <v-list-item-title>Categories</v-list-item-title>
           </v-list-item>
-          <v-list-item @click.prevent="$router.push('/checkout')" :disabled="savedCart == 0" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
+          <v-list-item @click.prevent="$router.push('/checkout')" :disabled="savedCart == 0">
             <v-list-item-title>Check Out</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
       </v-flex>
 
-      <v-flex xs6 class="div-for-large-screen">
+      <v-flex xs6 v-else>
         <v-spacer></v-spacer>
         <v-btn text @click="onFilter">Categories</v-btn>
         <v-btn text @click="onCategories">Filters</v-btn>
@@ -86,6 +83,9 @@ export default {
   computed: {
     savedCart () {
       return this.$store.getters.loadedCart.length
+    },
+    smallScreen() {
+      return this.$vuetify.breakpoint.smAndDown
     }
   },
   methods: {
