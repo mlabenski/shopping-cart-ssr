@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
       <v-btn text @click="handleContact">Contact shop</v-btn>
     </v-system-bar>
-    <v-toolbar :class="{scrollDown: scrollPosition < 100, scrolled: scrollPosition > 100}">
+    <v-toolbar :class="{scrollDown: scrollPosition < 45, scrolled: scrollPosition > 45}">
         <v-layout row wrap>
           <v-flex xs6>
             <v-img :src="logo" class="logo"></v-img>
@@ -74,12 +74,14 @@ export default {
   width: 100%;
   position: fixed;
   height: 58px;
-  background-color: black;
+  background-color: transparent;
   z-index: 100;
 }
 .scrolled {
   width: 100%;
   position: fixed;
+  top: 0px;
+  border: 3px solid green;
   height: 38px;
   background-color: black;
   z-index: 100;
