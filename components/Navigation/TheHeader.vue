@@ -90,7 +90,6 @@ export default {
   width: 100%;
   position: fixed;
   height: 58px;
-  background-color: transparent;
   z-index: 100;
 }
 .scrolled {
@@ -160,5 +159,7 @@ export default {
 .v-btn {
   background-color: transparent;
   color: #fff;
+  font-size: 21px;
+  text-decoration: solid;
 }
 </style>
