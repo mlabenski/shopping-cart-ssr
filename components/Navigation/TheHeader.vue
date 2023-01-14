@@ -1,6 +1,17 @@
 <template>
+  <div>
+    <v-system-bar window dark>
+      <v-flex xs6>
+        <v-text-field
+          placeholder="Search..."
+          prepend-icon="search"
+          @keyup.enter="handleSearch"
+        ></v-text-field>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <v-btn text @click="handleContact">Contact shop</v-btn>
+    </v-system-bar>
         <v-toolbar class="scrollDown" ref="headerRef">
-          <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
         <v-layout row wrap>
           <v-flex xs6>
             <v-img :src="logo" class="logo"></v-img>
@@ -20,10 +31,12 @@
       <v-flex xs6>
         <v-spacer></v-spacer>
         <v-btn text @click="handleContact">Contact shop</v-btn>
-        <v-btn text><nuxt-link :to="{name: 'checkout'}">Checkout <v-badge color="primary" right>>{{ savedCart }}</v-badge></nuxt-link></v-btn>
+        <v-btn text @click="$router.push('/checkout')">Checkout <v-badge color="primary" right>>{{ savedCart }}</v-badge></v-btn>
       </v-flex>
     </v-layout>
     </v-toolbar>
+              <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
+    </div>
 </template>
 
 <script>
