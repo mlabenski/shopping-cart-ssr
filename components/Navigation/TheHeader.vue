@@ -2,16 +2,11 @@
   <div>
     <v-system-bar window dark>
       <v-flex xs6>
-        <v-text-field
-          placeholder="Search..."
-          prepend-icon="search"
-          @keyup.enter="handleSearch"
-        ></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
       <v-btn text @click="handleContact">Contact shop</v-btn>
     </v-system-bar>
-        <v-toolbar class="scrollDown" ref="headerRef">
+    <v-toolbar :class="{scrollDown: scrollPosition < 100, scrolled: scrollPosition > 100}">
         <v-layout row wrap>
           <v-flex xs6>
             <v-img :src="logo" class="logo"></v-img>
@@ -22,11 +17,6 @@
       </v-layout>
       <v-layout row wrap>
       <v-flex xs6>
-        <v-text-field
-          placeholder="Search..."
-          prepend-icon="search"
-          @keyup.enter="handleSearch"
-        ></v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-spacer></v-spacer>
@@ -48,32 +38,14 @@ export default {
   components: {
     TheSideNavToggle
   },
-  setup() {
-    const headRef = ref(null); // obtain the reference
-    onMounted(() => {
-      var prev = window.pageYOffset;
-      window.addEventListener("scroll", () => {
-        var curr = window.pageYOffset;
-        if (prev > curr) {
-          headRef.value.classList.add("scrolled");
-          headRef.value.classList.remove("scrollDown");
-        } else {
-          headRef.value.classList.add("scrollDown");
-          headRef.value.classList.remove("scrolled");
-        }
-        if (curr === 0) {
-          headRef.value.classList.remove("scrollDown");
-          headRef.value.classList.remove("scrolled");
-        }
-        prev = current;
-      });
-    });
-    return { headRef };
-  },
   props: ['title'],
+  mounted() {
+    window.addEventListener('scroll', this.updateScroll);
+  },
   data () {
     return {
-      store: null
+      store: null,
+      scrollPosition: null
     }
   },
   async fetch () {
@@ -86,6 +58,9 @@ export default {
   methods: {
     handleSearch() {
       console.log('This feature has not been implemented yet')
+    },
+    updateScroll() {
+      this.scrollPosition = window.scrollY
     }
   }
 }
