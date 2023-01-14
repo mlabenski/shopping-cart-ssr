@@ -90,7 +90,6 @@ export default {
   height: 58px;
   background-color: black;
   z-index: 100;
-  padding: 0 20px;
 }
 .scrolled {
   width: 100%;
@@ -98,7 +97,6 @@ export default {
   height: 38px;
   background-color: black;
   z-index: 100;
-  padding: 0 20px;
 }
 .logo a {
   text-decoration: none;
