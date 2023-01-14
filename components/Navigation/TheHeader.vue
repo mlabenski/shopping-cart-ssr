@@ -5,6 +5,19 @@
       </v-flex>
       <v-spacer></v-spacer>
       <v-btn text @click="handleContact">Contact shop</v-btn>
+      <v-icon
+      large
+      color="green darken-2"
+    >
+      mdi-email
+    </v-icon>
+    <v-icon
+      large
+      color="green darken-2"
+      style="padding-left: 9px;"
+    >
+      mdi-phone
+    </v-icon>
     </v-system-bar>
     <v-toolbar :class="{scrollDown: scrollPosition < 45, scrolled: scrollPosition > 45}">
         <v-layout row wrap>
@@ -12,7 +25,7 @@
             <v-img :src="logo" class="logo"></v-img>
           </v-flex>
         <v-flex xs6>
-          <v-toolbar-title><nuxt-link to="/">{{ title }}</nuxt-link></v-toolbar-title>
+          <nuxt-link to="/"><v-toolbar-title>{{ title }}</v-toolbar-title></nuxt-link>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
@@ -20,8 +33,9 @@
       </v-flex>
       <v-flex xs6>
         <v-spacer></v-spacer>
-        <v-btn text @click="handleContact">Contact shop</v-btn>
-        <v-btn text @click="$router.push('/checkout')">Checkout <v-badge color="primary" right>>{{ savedCart }}</v-badge></v-btn>
+        <v-btn text @click="handleContact">Categories</v-btn>
+        <v-btn text @click="handleContact">Filters</v-btn>
+        <v-badge color="primary" right><v-btn text @click="$router.push('/checkout')">Checkout {{ savedCart }}</v-btn></v-badge>
       </v-flex>
     </v-layout>
     </v-toolbar>
@@ -31,8 +45,7 @@
 
 <script>
 import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
-import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
+
 export default {
   name: 'TheHeader',
   components: {
@@ -62,6 +75,9 @@ export default {
     updateScroll() {
       this.scrollPosition = window.scrollY
     }
+  },
+  destroy() {
+  window.removeEventListener('scroll', this.updateScroll)
   }
 }
 </script>
