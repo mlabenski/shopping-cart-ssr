@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app light>
     <div>
       <nuxt />
     </div>
@@ -24,18 +24,15 @@ export default {
   fetch (context) {
     return context.store.dispatch('clientServerInit')
   },
-
   created () {
     this.$cookies.set('userID', Math.floor(Math.random() * 100))
   }
 }
 </script>
-
 <style>
 html {
   font-family: 'Open Sans', sans-serif;
 }
-
 body {
   margin: 0;
 }

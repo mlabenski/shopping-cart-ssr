@@ -2,18 +2,18 @@
   <div>
     <v-system-bar window dark>
       <v-flex xs6>
+        <v-btn text @click="handleContact">Custom Message</v-btn>
       </v-flex>
       <v-spacer></v-spacer>
-      <v-btn text @click="handleContact">Contact shop</v-btn>
       <v-icon
       large
-      color="green darken-2"
+      color="white"
     >
       mdi-email
     </v-icon>
     <v-icon
       large
-      color="green darken-2"
+      color="white"
       style="padding-left: 9px;"
     >
       mdi-phone
