@@ -31,7 +31,7 @@
       <v-layout row wrap>
       <v-flex xs6>
       </v-flex>
-        <v-menu v-if="smallScreen">
+        <v-menu v-if="smallScreen" data-app>
         <template v-slot:activator="{ on }" class="div-for-small-screen">
           <v-btn icon v-on="on">
             <v-icon>mdi-menu</v-icon>
