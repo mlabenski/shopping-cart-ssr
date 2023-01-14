@@ -1,7 +1,6 @@
 <template>
-    <header class="scrollDown" ref="headerRef">
-      <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
-        <v-toolbar>
+        <v-toolbar class="scrollDown" ref="headerRef">
+          <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
         <v-layout row wrap>
           <v-flex xs6>
             <v-img :src="logo" class="logo"></v-img>
@@ -24,8 +23,7 @@
         <v-btn text><nuxt-link :to="{name: 'checkout'}">Checkout <v-badge color="primary" right>>{{ savedCart }}</v-badge></nuxt-link></v-btn>
       </v-flex>
     </v-layout>
-    </v-toolbar> 
-    </header>
+    </v-toolbar>
 </template>
 
 <script>
