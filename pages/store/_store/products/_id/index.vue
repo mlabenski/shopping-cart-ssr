@@ -123,13 +123,13 @@ export default {
 
 <style scoped>
 .single-post-page {
-  padding: 30px;
   text-align: center;
   box-sizing: border-box;
 }
 
 .post {
   width: 100%;
+  margin-top: 20px;
 }
 
 .post-image {
