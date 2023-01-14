@@ -6,11 +6,16 @@
             <v-img :src="logo" class="logo"></v-img>
           </v-flex>
         <v-flex xs6>
-          <v-toolbar-title>{{ title}}</v-toolbar-title>
+          <v-toolbar-title><nuxt-link to="/">{{ title }}</nuxt-link></v-toolbar-title>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
       <v-flex xs6>
+        <v-text-field
+          placeholder="Search..."
+          prepend-icon="search"
+          @keyup.enter="handleSearch"
+        ></v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-spacer></v-spacer>
