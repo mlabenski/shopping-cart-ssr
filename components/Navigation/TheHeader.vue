@@ -21,15 +21,17 @@
     </v-system-bar>
     <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
       <v-layout row wrap>
-        <v-flex xs6>
+        <v-flex xs1>
+
+        </v-flex>
+        <v-flex xs10>
           <nuxt-link to="/"><v-toolbar-title>{{ title }}</v-toolbar-title></nuxt-link>
         </v-flex>
     </v-layout>
       <v-layout row wrap>
       <v-flex xs6>
       </v-flex>
-      <v-flex xs6 v-if="smallScreen">
-        <v-menu>
+        <v-menu v-if="smallScreen">
         <template v-slot:activator="{ on }" class="div-for-small-screen">
           <v-btn icon v-on="on">
             <v-icon>mdi-menu</v-icon>
@@ -47,7 +49,6 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      </v-flex>
 
       <v-flex xs6 v-else>
         <v-spacer></v-spacer>
