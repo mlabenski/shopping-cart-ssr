@@ -35,7 +35,7 @@
         <v-spacer></v-spacer>
         <v-btn text @click="handleContact">Categories</v-btn>
         <v-btn text @click="handleContact">Filters</v-btn>
-        <v-badge color="primary" right><v-btn text @click="$router.push('/checkout')">Checkout {{ savedCart }}</v-btn></v-badge>
+        <v-badge color="primary" right><v-btn text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
       </v-flex>
     </v-layout>
     </v-toolbar>
