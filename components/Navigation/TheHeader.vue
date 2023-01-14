@@ -19,7 +19,7 @@
       mdi-phone
     </v-icon>
     </v-system-bar>
-    <v-toolbar :class="{scrollDown: scrollPosition < 45, scrolled: scrollPosition > 45}">
+    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
         <v-layout row wrap>
           <v-flex xs6>
             <v-img :src="logo" class="logo"></v-img>
@@ -141,7 +141,8 @@ export default {
 }
 
 .v-toolbar__title {
-  color: #fff;
+  color: black;
+  font-size: 26px;
 }
 
 .v-text-field {

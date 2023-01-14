@@ -14,8 +14,6 @@
 import ProductList from '~/components/Products/ProductList.vue'
 import CartDisplay from '~/components/Cart/CartDisplay.vue'
 import TheHeader from '@/components/Navigation/TheHeader'
-import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
 
 export default {
   name: 'StoreHome',
@@ -84,8 +82,7 @@ export default {
 .intro {
   height: 300px;
   position: relative;
-  top: 70px;
-  padding: 30px;
+  padding-bottom: 30px;
   box-sizing: border-box;
   background-position: center;
   background-size: cover;
