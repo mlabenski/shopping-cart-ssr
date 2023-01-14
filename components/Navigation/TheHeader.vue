@@ -88,7 +88,6 @@ export default {
 }
 .scrollDown {
   width: 100%;
-  position: fixed;
   height: 58px;
   z-index: 100;
 }
@@ -96,8 +95,6 @@ export default {
   width: 100%;
   position: fixed;
   top: 0px;
-  border: 3px solid green;
-  height: 38px;
   background-color: black;
   z-index: 100;
 }
