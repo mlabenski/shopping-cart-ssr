@@ -129,7 +129,7 @@ export default {
 
 .post {
   width: 100%;
-  margin-top: 20px;
+  padding-top: 20px;
 }
 
 .post-image {
