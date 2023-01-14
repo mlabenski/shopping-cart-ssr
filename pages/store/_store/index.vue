@@ -84,6 +84,7 @@ export default {
 .intro {
   height: 300px;
   position: relative;
+  top: 70px;
   padding: 30px;
   box-sizing: border-box;
   background-position: center;
