@@ -1,6 +1,6 @@
 <template>
   <div class="home-page" v-if="headers">
-  <TheHeader :title=headers @sidenavToggle="displaySidenav = !displaySidenav" />
+  <TheHeader :title=headers ref="headerRef" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="intro" v-bind:style="{ 'background-image': 'url(' + headersImg + ')' }">
       <h1>Buy NFTs from Nicolas Cage</h1>
       <h1>Categories {{ loadedStore }}</h1>
@@ -14,10 +14,35 @@
 import ProductList from '~/components/Products/ProductList.vue'
 import CartDisplay from '~/components/Cart/CartDisplay.vue'
 import TheHeader from '@/components/Navigation/TheHeader'
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
 
 export default {
   name: 'StoreHome',
   components: { CartDisplay, ProductList, TheHeader },
+  setup() {
+    const headerRef = ref(null);
+    onMounted(() => {
+      var prev = window.pageYOffset;
+      window.addEventListener("scroll", () => {
+        var current = window.pageYOffset;
+        var curr = window.pageYOffset;
+          if (prev > curr) {
+            headerRef.value.classList.add("scrolled");
+            headerRef.value.classList.remove("scrollDown");
+          } else {
+            headerRef.value.classList.add("scrollDown");
+            headerRef.value.classList.remove("scrolled");
+          }
+          if (curr === 0) {
+            headerRef.value.classList.remove("scrollDown");
+            headerRef.value.classList.remove("scrolled");
+          }
+          prev = current;
+        });
+      });
+      return { headerRef };
+    },
   asyncData (context) {
     const lProducts = []
     var storeID = ''
