@@ -1,7 +1,7 @@
 <template>
   <v-app light>
     <v-main>
-      <v-container>
+      <v-container id="main_contain">
         <Nuxt />
       </v-container>
     </v-main>
@@ -37,5 +37,8 @@ html {
 }
 body {
   margin: 0;
+}
+#main_contain{
+  padding: 0;
 }
 </style>
