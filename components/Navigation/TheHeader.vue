@@ -19,13 +19,12 @@
       mdi-phone
     </v-icon>
     </v-system-bar>
-    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
+    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}" v-if="scrollPosition">
       <v-layout row wrap>
-        <v-flex xs1>
-
-        </v-flex>
-        <v-flex xs4>
-          <nuxt-link to="/"><v-toolbar-title>{{ title }}</v-toolbar-title></nuxt-link>
+        <v-flex xs12 md5 lg5>
+          <v-toolbar-title @click.prevent="$router.push('/checkout')">
+            <span class="ml-2">{{ title }}</span>
+          </v-toolbar-title>
         </v-flex>
         <v-spacer>
         </v-spacer>
@@ -54,12 +53,12 @@
         </v-card>
       </v-menu>
 
-      <v-flex xs6 v-else>
+      <v-flex xs12 md5 lg5 v-else>
         <v-btn text @click="onFilter">Categories</v-btn>
         <v-btn text @click="onCategories">Filters</v-btn>
         <v-badge color="primary" right><v-btn text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
       </v-flex>
-      <v-flex xs2>
+      <v-flex md1 lg1>
       </v-flex>
     </v-layout>
     </v-toolbar>
@@ -117,8 +116,6 @@ export default {
   height: 64px;
   z-index: 100;
   background-color: black;
-  position: fixed;
-  top: 20px;
 }
 
 @media (min-width: 1080px) {
