@@ -27,8 +27,6 @@
         <v-flex xs4>
           <nuxt-link to="/"><v-toolbar-title>{{ title }}</v-toolbar-title></nuxt-link>
         </v-flex>
-    </v-layout>
-      <v-layout row wrap>
         <v-spacer>
         </v-spacer>
         <v-menu v-if="smallScreen">
