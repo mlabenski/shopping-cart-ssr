@@ -36,4 +36,7 @@ html {
 body {
   margin: 0;
 }
+.v-application--wrap {
+  min-height: unset;
+}
 </style>
