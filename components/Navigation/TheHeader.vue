@@ -19,7 +19,7 @@
       mdi-phone
     </v-icon>
     </v-system-bar>
-    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}" v-if="scrollPosition">
+    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
       <v-layout row wrap>
         <v-flex xs1>
 
