@@ -21,22 +21,27 @@
       <div class="text-center" style="position:relative; margin-top: 15px">
         <h3>Total Cost: ${{ quantity * loadedProduct.price }}.00</h3>
       </div>
-      <v-row>
+      <v-container fluid>
+        <v-row>
         <v-col>
           <h2>Options: </h2>
-          <select v-if="loadedProduct.options !== null" v-model="selected" @change="checkOption(selected)">
+          <v-select v-if="loadedProduct.options !== null" v-model="selected" @change="checkOption(selected)">
             <option :key="''" :value="''">
               {{ loadedProduct.name }}
             </option>
             <option v-for="product in loadedProduct.options" :key="product.value" :value="product">
               {{ product.value }}
             </option>
-          </select>
+          </v-select>
         </v-col>
         <v-col>
           <h2>Quantity: </h2>
           <input v-model="quantity" style="max-width: 75%" placeholder="Edit Quantity" value="1" type="number">
         </v-col>
+        </v-row>
+      </v-container>
+
+      <v-row>
         <v-col>
           <v-btn
             rounded
@@ -45,7 +50,7 @@
             style=""
             @click="onSubmitted(loadedProduct, quantity)"
           >
-            Add to Shop
+            Add to Cart
           </v-btn>
         </v-col>
       </v-row>
@@ -184,4 +189,3 @@ export default {
   color: salmon;
 }
 </style>
-
