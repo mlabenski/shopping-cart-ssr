@@ -53,7 +53,7 @@
         </v-card>
       </v-menu>
 
-      <v-flex xs4 md6 lg6 v-else>
+      <v-flex xs4 md4 lg4 v-else>
         <v-btn class="header_btn_text" text small @click="onFilter">Categories</v-btn>
         <v-btn class="header_btn_text" text small @click="onCategories">Filters</v-btn>
         <v-badge color="primary" right><v-btn class="header_btn_text" text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
