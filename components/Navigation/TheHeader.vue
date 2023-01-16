@@ -21,7 +21,7 @@
     </v-system-bar>
     <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
       <v-layout row wrap>
-        <v-flex xs8 md5 lg5>
+        <v-flex xs8 md4 lg4>
           <v-toolbar-title @click.prevent="$router.push('/checkout')">
             <span class="ml-2">{{ title }}</span>
           </v-toolbar-title>
@@ -67,7 +67,6 @@
 
 <script>
 import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
-
 export default {
   name: 'TheHeader',
   components: {
@@ -120,7 +119,6 @@ font-size: .8rem;
   z-index: 100;
   background-color: black;
 }
-
 @media (min-width: 1080px) {
     .scrollDown {
       height: 88px;
@@ -142,7 +140,6 @@ font-size: .8rem;
 .header_btn_text {
   font-size: .78rem;
 }
-
 .logo a {
   text-decoration: none;
   color: white;
@@ -180,27 +177,22 @@ font-size: .8rem;
   max-width: 50px;
   margin-left: 10px;
 }
-
 .v-toolbar {
   background-color: #3f51b5;
 }
-
 .v-toolbar__title {
-  color: black;
+  color: white;
   font-size: 22px;
   overflow: hidden;
   text-overflow: clip;
 }
-
 .v-text-field {
   background-color: #fff;
   color: #000;
 }
-
 .v-text-field input::placeholder {
   color: #bdbdbd;
 }
-
 .v-btn {
   background-color: transparent;
   text-decoration: solid;
