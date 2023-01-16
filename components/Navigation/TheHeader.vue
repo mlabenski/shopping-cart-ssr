@@ -116,6 +116,8 @@ export default {
   width: 100%;
   height: 9vw;
   z-index: 100;
+  background-color: black;
+  position: fixed;
 }
 
 @media (min-width: 1080px) {
@@ -213,4 +215,5 @@ export default {
     display: block;
   }
 }
+
 </style>
