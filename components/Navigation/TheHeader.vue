@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-system-bar window dark>
+    <v-system-bar window dark height="24">
       <v-flex xs6>
         <v-btn text @click="handleContact">Custom Message</v-btn>
       </v-flex>
