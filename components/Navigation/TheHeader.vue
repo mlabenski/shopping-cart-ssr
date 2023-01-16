@@ -5,7 +5,6 @@
         <v-btn text @click="handleContact">Custom Message</v-btn>
       </v-flex>
       <v-spacer></v-spacer>
-      <v-flex xs4>
         <v-icon
       large
       color="white"
@@ -19,7 +18,6 @@
     >
       mdi-phone
     </v-icon>
-      </v-flex>
     </v-system-bar>
     <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
       <v-layout row wrap>
