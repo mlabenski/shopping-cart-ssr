@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-system-bar window dark>
       <v-flex xs6>
         <v-btn text @click="handleContact">Custom Message</v-btn>
@@ -19,7 +19,7 @@
       mdi-phone
     </v-icon>
     </v-system-bar>
-    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
+    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}" v-if="scrollPosition">
       <v-layout row wrap>
         <v-flex xs1>
 
@@ -29,7 +29,7 @@
         </v-flex>
     </v-layout>
       <v-layout row wrap>
-      <v-flex xs6>
+      <v-flex xs2>
       </v-flex>
         <v-menu v-if="smallScreen">
         <template v-slot:activator="{ on }" class="div-for-small-screen">
@@ -50,7 +50,7 @@
         </v-list>
       </v-menu>
 
-      <v-flex xs6 v-else>
+      <v-flex xs10 v-else>
         <v-spacer></v-spacer>
         <v-btn text @click="onFilter">Categories</v-btn>
         <v-btn text @click="onCategories">Filters</v-btn>
@@ -58,7 +58,7 @@
       </v-flex>
     </v-layout>
     </v-toolbar>
-    </div>
+  </v-container>
 </template>
 
 <script>
@@ -109,16 +109,29 @@ export default {
 }
 .scrollDown {
   width: 100%;
-  height: 58px;
+  height: 9vw;
   z-index: 100;
+}
+
+@media (min-width: 1080px) {
+    .scrollDown {
+      height: 88px;
+    }
 }
 .scrolled {
   width: 100%;
   position: fixed;
+  height:7vw;
   top: 0px;
   background-color: black;
   z-index: 100;
 }
+@media (min-width: 1080px) {
+    .scrolled {
+      height: 70px;
+    }
+}
+
 .logo a {
   text-decoration: none;
   color: white;
