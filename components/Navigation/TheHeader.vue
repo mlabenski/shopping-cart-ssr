@@ -21,7 +21,7 @@
     </v-system-bar>
     <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
       <v-layout row wrap>
-        <v-flex xs12 md5 lg5>
+        <v-flex xs8 md5 lg5>
           <v-toolbar-title @click.prevent="$router.push('/checkout')">
             <span class="ml-2">{{ title }}</span>
           </v-toolbar-title>
@@ -53,9 +53,9 @@
         </v-card>
       </v-menu>
 
-      <v-flex xs12 md5 lg5 v-else>
-        <v-btn class="header_btn_text" text @click="onFilter">Categories</v-btn>
-        <v-btn class="header_btn_text" text @click="onCategories">Filters</v-btn>
+      <v-flex xs4 md6 lg6 v-else>
+        <v-btn class="header_btn_text" text small @click="onFilter">Categories</v-btn>
+        <v-btn class="header_btn_text" text small @click="onCategories">Filters</v-btn>
         <v-badge color="primary" right><v-btn class="header_btn_text" text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
       </v-flex>
       <v-flex md1 lg1>
@@ -108,6 +108,9 @@ export default {
 </script>
 
 <style scoped>
+.v-btn.v-size--default {
+font-size: .8rem;
+}
 .header-container {
   height: 60px;
 }
@@ -184,7 +187,9 @@ export default {
 
 .v-toolbar__title {
   color: black;
-  font-size: 26px;
+  font-size: 22px;
+  overflow: hidden;
+  text-overflow: clip;
 }
 
 .v-text-field {
@@ -198,8 +203,6 @@ export default {
 
 .v-btn {
   background-color: transparent;
-  color: #fff;
-  font-size: 21px;
   text-decoration: solid;
 }
 .div-for-small-screen {
