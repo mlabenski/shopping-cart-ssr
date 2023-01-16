@@ -81,7 +81,7 @@ export default {
   data () {
     return {
       store: null,
-      scrollPosition: null
+      scrollPosition: 1
     }
   },
   async fetch () {
@@ -114,10 +114,11 @@ export default {
 }
 .scrollDown {
   width: 100%;
-  height: 9vw;
+  height: 64px;
   z-index: 100;
   background-color: black;
   position: fixed;
+  top: 20px;
 }
 
 @media (min-width: 1080px) {
@@ -128,7 +129,7 @@ export default {
 .scrolled {
   width: 100%;
   position: fixed;
-  height:7vw;
+  height:64px;
   top: 0px;
   background-color: black;
   z-index: 100;
@@ -215,5 +216,4 @@ export default {
     display: block;
   }
 }
-
 </style>
