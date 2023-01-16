@@ -40,5 +40,6 @@ body {
 }
 #main_contain{
   padding: 0;
+  max-width: 100%;
 }
 </style>
