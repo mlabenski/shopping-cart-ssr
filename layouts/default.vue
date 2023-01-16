@@ -1,8 +1,10 @@
 <template>
   <v-app light>
-    <div>
-      <nuxt />
-    </div>
+    <v-main>
+      <v-container>
+        <Nuxt />
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -35,8 +37,5 @@ html {
 }
 body {
   margin: 0;
-}
-.v-application--wrap {
-  min-height: unset;
 }
 </style>
