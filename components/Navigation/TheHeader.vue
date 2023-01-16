@@ -19,7 +19,7 @@
       mdi-phone
     </v-icon>
     </v-system-bar>
-    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}" v-if="scrollPosition">
+    <v-toolbar :class="{scrollDown: scrollPosition < 35, scrolled: scrollPosition > 35}">
       <v-layout row wrap>
         <v-flex xs12 md5 lg5>
           <v-toolbar-title @click.prevent="$router.push('/checkout')">
@@ -54,9 +54,9 @@
       </v-menu>
 
       <v-flex xs12 md5 lg5 v-else>
-        <v-btn text @click="onFilter">Categories</v-btn>
-        <v-btn text @click="onCategories">Filters</v-btn>
-        <v-badge color="primary" right><v-btn text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
+        <v-btn class="header_btn_text" text @click="onFilter">Categories</v-btn>
+        <v-btn class="header_btn_text" text @click="onCategories">Filters</v-btn>
+        <v-badge color="primary" right><v-btn class="header_btn_text" text @click="$router.push('/checkout')" :disabled="savedCart == 0">Checkout {{ savedCart }}</v-btn></v-badge>
       </v-flex>
       <v-flex md1 lg1>
       </v-flex>
@@ -135,6 +135,9 @@ export default {
     .scrolled {
       height: 70px;
     }
+}
+.header_btn_text {
+  font-size: .78rem;
 }
 
 .logo a {
