@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-system-bar window dark>
       <v-flex xs6>
         <v-btn text @click="handleContact">Custom Message</v-btn>
@@ -37,17 +37,23 @@
             <v-icon>mdi-menu</v-icon>
           </v-btn>
         </template>
-        <v-list style="margin-top:1.5%;">
-          <v-list-item @click.prevent="onFilter">
-            <v-list-item-title>Filters</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click.prevent="onCategories" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
-            <v-list-item-title>Categories</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click.prevent="$router.push('/checkout')" :disabled="savedCart == 0">
-            <v-list-item-title>Check Out</v-list-item-title>
-          </v-list-item>
-        </v-list>
+        <v-card>
+          <v-container>
+            <v-row style="margin-top:1.5%;">
+              <v-col cols="12" >
+                <v-list-item @click.prevent="onFilter">
+                  <v-list-item-title>Filters</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click.prevent="onCategories" style="border-width: thin; border-radius: 0 0 2px 0; border-bottom-color: grey;">
+                  <v-list-item-title>Categories</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click.prevent="$router.push('/checkout')" :disabled="savedCart == 0">
+                  <v-list-item-title>Check Out</v-list-item-title>
+                </v-list-item>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
       </v-menu>
 
       <v-flex xs6 v-else>
@@ -59,7 +65,7 @@
       </v-flex>
     </v-layout>
     </v-toolbar>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -209,5 +215,4 @@ export default {
     display: block;
   }
 }
-
 </style>
