@@ -77,7 +77,8 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          tertiary: colors.pink.base
         },
         light: {
           primary: '#3f51b5',
@@ -87,7 +88,8 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          tertiary: colors.pink.base
         }
       }
     }
@@ -121,3 +123,4 @@ export default {
     }
   }
 }
+
