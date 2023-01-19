@@ -2,17 +2,17 @@
   <div class="single-post-page">
     <TheHeader :title="loadedProduct.name" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="post">
-      <h1 class="post-title">
+      <h1 class="post-title" :style="cssProps">
         {{ loadedProduct.name }}
       </h1>
-      <div class="post-details">
-        <div class="post-detail">
+      <div class="post-details" :style="cssProps">
+        <div class="post-detail" :style="cssProps">
           {{ loadedProduct.categories }}
         </div>
-        <div class="post-detail">
+        <div class="post-detail" :style="cssProps">
           $ {{ loadedProduct.price }}
         </div>
-        <div class="post-detail">
+        <div class="post-detail" :style="cssProps">
           {{ loadedProduct.descShort }}
         </div>
       </div>
@@ -70,7 +70,6 @@ export default {
     TheHeader
   },
   asyncData (context) {
-    this.$vuetify.theme.themes.dark.tertiary = '#4caf50'
     if (context.payload) {
       return {
         loadedProduct: context.payload
@@ -103,6 +102,12 @@ export default {
   head: {
     title: 'Product Details'
   },
+  computed: {
+    cssProps () {
+        return {
+            '--secondary-color': this.$vuetify.theme.themes.dark.tertiary
+        }
+  },
   methods: {
     onSubmitted (product, quantity) {
       const storeID = this.$route.params.store
@@ -123,6 +128,7 @@ export default {
     }
   }
 }
+}
 </script>
 
 <style scoped>
@@ -131,6 +137,12 @@ export default {
   box-sizing: border-box;
 }
 
+.post-detail {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+  margin: 0 10px;
+}
 .post {
   width: 100%;
   padding-top: 20px;
@@ -150,10 +162,7 @@ export default {
   }
 }
 
-.post-title {
-  margin: 0;
-  color: var(--v-tertiary-base);
-}
+
 
 .post-details {
   padding: 10px;
@@ -171,10 +180,6 @@ export default {
   }
 }
 
-.post-detail {
-  color: rgb(88, 88, 88);
-  margin: 0 10px;
-}
 .post-feedback {
   padding-top: 250px
 }
