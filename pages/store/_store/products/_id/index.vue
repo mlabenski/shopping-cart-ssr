@@ -58,7 +58,6 @@
     <section class="post-feedback">
       <p>Let me know what you think about the post, send a mail to <a href="mailto:geeboff@geeboff.com">geeboff@geeboff.com</a>.</p>
     </section>
-    <vue-icons />
   </div>
 </template>
 
@@ -68,10 +67,10 @@ import TheHeader from '@/components/Navigation/TheHeader'
 
 export default {
   components: {
-    VueIcons,
     TheHeader
   },
   asyncData (context) {
+    this.$vuetify.theme.themes.dark.tertiary = '#4caf50'
     if (context.payload) {
       return {
         loadedProduct: context.payload
@@ -98,7 +97,7 @@ export default {
     return {
       quantity: 1,
       selected: '',
-      displaySidenav: false
+      displaySidenav: false,
     }
   },
   head: {
@@ -153,6 +152,7 @@ export default {
 
 .post-title {
   margin: 0;
+  color: var(--v-tertiary-base);
 }
 
 .post-details {
