@@ -78,7 +78,9 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          tertiary: colors.pink.base
+          tertiary: colors.pink.base,
+          flamingo: colors.grey.darken3,
+          cardcolor: colors.grey.darken4
         },
         light: {
           primary: '#3f51b5',
@@ -89,7 +91,9 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          tertiary: colors.pink.base
+          tertiary: colors.pink.base,
+          flamingo: colors.grey.lighten4,
+          cardcolor: colors.grey.lighten4
         }
       }
     }
