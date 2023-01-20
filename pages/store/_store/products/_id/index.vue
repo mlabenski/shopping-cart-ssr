@@ -1,5 +1,5 @@
 <template>
-  <div class="single-post-page">
+  <div class="single-post-page" :style="cssProps">
     <TheHeader :title="loadedProduct.name" @sidenavToggle="displaySidenav = !displaySidenav" />
     <section class="post">
       <h1 class="post-title" :style="cssProps">
@@ -105,7 +105,9 @@ export default {
   computed: {
     cssProps () {
         return {
-            '--secondary-color': this.$vuetify.theme.themes.dark.tertiary
+            '--secondary-color': this.$vuetify.theme.themes.dark.tertiary,
+            '--pagebackground-color': this.$vuetify.theme.themes.dark.flamingo,
+            '--postbackground-color': this.$vuetify.theme.themes.dark.cardcolor
         }
   },
   methods: {
@@ -135,6 +137,7 @@ export default {
 .single-post-page {
   text-align: center;
   box-sizing: border-box;
+  background-color: var(--pagebackground-color);
 }
 
 .post-detail {
